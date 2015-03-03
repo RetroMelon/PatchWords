@@ -61,13 +61,17 @@ A collaborative story telling platform made with Django. For Web App Development
 
 # To Do List
 
+### Misc
+- ~~start project~~
+- ~~create a population script~~
+
 ###Database
-- User
-- Story
-- Category
-- Paragraph
-- Like
-- Favourite
+- ~~User~~
+- ~~Story~~
+- ~~Category~~
+- ~~Paragraph~~
+- ~~Like~~
+- ~~Favourite~~
 
 ###Forms
 - NewStory
