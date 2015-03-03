@@ -40,9 +40,10 @@ class Paragraph(models.Model):
     parent = models.ForeignKey('self')
     views = models.IntegerField(default=0)
     author = models.ForeignKey(User)
-    created_datetime = models.DateTimeField(auto_now_add = True)
+    created_datetime = models.DateTimeField(auto_now_add=True)
     end = models.BooleanField(default=False)
-
+    content = forms.CharField(max_length=200, unique = False)
+    
     def __unicode__(self):
         return self.author.username
 
