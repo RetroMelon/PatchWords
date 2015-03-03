@@ -1,14 +1,15 @@
 from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
-#from django.template.defaultfilters import slugify
+from django.template.defaultfilters import slugify
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     picture = models.ImageField(upload_to='profile_images',blank=True)
-    bio = models.TextField(blank=True)
-    date_of_birth = models.DateField(blank=True)
+    bio = models.TextField(blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
 
+    #the choices for gender
     MALE = 'Male'
     FEMALE = 'Female'
     NOT_SPECIFIED = 'Not Specified'
@@ -16,7 +17,8 @@ class UserProfile(models.Model):
     GENDER_CHOICES = (
         (MALE, 'Male'), (FEMALE, 'Female'), (NOT_SPECIFIED, 'Not Specified'),
     )
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=NOT_SPEFICIED)
+
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=NOT_SPECIFIED)
 
     def calculate_age(self):
         today = date.today()
@@ -31,39 +33,50 @@ class Category(models.Model):
     title = models.CharField(max_length=30)
     slug = models.SlugField(unique=True)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Category, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.title
+
+
+
+class Story(models.Model):
+    created_datetime = models.DateTimeField(auto_now_add = True)
+
+    title = models.CharField(max_length = 128, unique=True)
+    author = models.ForeignKey(User)
+    category = models.ForeignKey(Category)
+    slug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Story, self).save(*args, **kwargs)
+
     def __unicode__(self):
         return self.title
 
 
 class Paragraph(models.Model):
-    story = models.ForeignKey(Story)
-    parent = models.ForeignKey('self')
-    views = models.IntegerField(default=0)
-    author = models.ForeignKey(User)
     created_datetime = models.DateTimeField(auto_now_add = True)
+
+    content = models.CharField(max_length=200)
+    story = models.ForeignKey(Story)
+    parent = models.ForeignKey('self', null=True)
+    author = models.ForeignKey(User)
     end = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return self.author.username
+        return self.author.username + ": " + self.content[:20] + "..."
 
 
 class Favourite(models.Model):
-    user = models.ForeignKey(UserProfile)
+    user = models.ForeignKey(User)
     story = models.ForeignKey(Story)
 
     def __unicode__(self):
-            return self.user.username
-
-
-class Story(models.Model):
-    title = models.CharField(max_length = 128, unique=True)
-    author = models.ForeignKey(User)
-    category = models.ForeignKey(Category)
-    created_datetime = models.DateTimeField(auto_now_add = True)
-    slug = models.SlugField()
-
-    def __unicode__(self):
-        return self.title
+            return self.user.username + " FAVS " + self.story.title
 
 
 class Like(models.Model):
@@ -71,4 +84,4 @@ class Like(models.Model):
     paragraph = models.ForeignKey(Paragraph)
 
     def __unicode__(self):
-        return self.user.username
+        return self.user.username + " Likes \"" + self.paragraph.content[:20] + "\"..."
