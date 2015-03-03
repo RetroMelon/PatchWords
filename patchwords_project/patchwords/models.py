@@ -27,3 +27,14 @@ class Paragraph(models.Model):
 class Favourite(models.Model):
     user = ForeignKey(user.username)
     story = models.ForeignKey(Story)
+
+class Story(models.Models):
+    title = models.CharField(max_length = 128, unique=True)
+    author = models.ForeignKey(User)
+    category = models.ForeignKey(Category)
+    dateTime = models.DateTimeFeidl(auto_now_add = True)
+    slug = model.SlugField()
+
+class Like(models.Models):
+    user = models.ForeignKey(User)
+    paragraph = models.ForeignKey(Paragraph)
