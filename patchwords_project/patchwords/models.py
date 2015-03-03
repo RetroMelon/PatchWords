@@ -21,7 +21,7 @@ class Paragraph(models.Model):
     parent = ForeignKey(Paragrah)
     views = models.IntegerField(default=0)
     author = models.ForeignKey(Author)
-    created_datetime = models.DateTimeFeidl(auto_now_add = True)
+    created_datetime = models.DateTimeField(auto_now_add = True)
     end = BooleanField(default=false)
 
 class Favourite(models.Model):
