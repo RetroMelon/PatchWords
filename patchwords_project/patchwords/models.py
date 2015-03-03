@@ -16,4 +16,14 @@ class Category(models.Model):
     def __unicode__(self):
         return self.title
 
+class Paragraph(models.Model):
+    story = models.ForeignKey(Story)
+    parent = ForeignKey(Paragrah)
+    views = models.IntegerField(default=0)
+    author = models.ForeignKey(Author)
+    created_datetime = models.DateTimeFeidl(auto_now_add = True)
+    end = BooleanField(default=false)
 
+class Favourite(models.Model):
+    user = ForeignKey(user.username)
+    story = models.ForeignKey(Story)
