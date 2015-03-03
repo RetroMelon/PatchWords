@@ -38,7 +38,6 @@ class Category(models.Model):
 class Paragraph(models.Model):
     story = models.ForeignKey(Story)
     parent = models.ForeignKey('self')
-    views = models.IntegerField(default=0)
     author = models.ForeignKey(User)
     created_datetime = models.DateTimeField(auto_now_add=True)
     end = models.BooleanField(default=False)

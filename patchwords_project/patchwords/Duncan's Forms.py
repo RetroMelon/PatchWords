@@ -4,7 +4,6 @@ from patchwords.models import Paragraph
 
 
 class NewParagraph(forms.ModelForm):
-    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     content = forms.CharField(max_length=200, help_text="Write your paragraph!")
     choices = (
     (True, 'yes'),
