@@ -41,6 +41,13 @@ class Story(models.Models):
     dateTime = models.DateTimeFeidl(auto_now_add = True)
     slug = model.SlugField()
 
+    def __unicode__(self):
+        return self.title
+    
 class Like(models.Models):
     user = models.ForeignKey(User)
     paragraph = models.ForeignKey(Paragraph)
+
+    def __unicode__(self):
+        return self.user.username
+    
