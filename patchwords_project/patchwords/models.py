@@ -20,14 +20,20 @@ class Paragraph(models.Model):
     story = models.ForeignKey(Story)
     parent = ForeignKey(Paragrah)
     views = models.IntegerField(default=0)
-    author = models.ForeignKey(Author)
+    author = models.ForeignKey(User)
     created_datetime = models.DateTimeField(auto_now_add = True)
     end = BooleanField(default=false)
 
+    def __unicode__(self):
+        return self.author.username
+    
 class Favourite(models.Model):
     user = ForeignKey(user.username)
     story = models.ForeignKey(Story)
 
+    def __unicode__(self):
+            return self.user.username
+        
 class Story(models.Models):
     title = models.CharField(max_length = 128, unique=True)
     author = models.ForeignKey(User)
