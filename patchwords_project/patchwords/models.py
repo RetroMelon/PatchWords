@@ -70,6 +70,16 @@ class Paragraph(models.Model):
     def __unicode__(self):
         return self.author.username + ": " + self.content[:20] + "..."
 
+    #prints this tree with a subtree
+    def _print_subtree(self, depth=0):
+        #printing itself
+        print "|" + "-"*depth*2 + "|" + str(self)
+
+        #iterating over all of its children and printing them with depth+1
+        for c in Paragraph.objects.filter(parent=self):
+            c._print_subtree(depth=depth+1)
+
+
 
 class Favourite(models.Model):
     user = models.ForeignKey(User)
