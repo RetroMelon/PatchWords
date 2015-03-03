@@ -8,10 +8,15 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='profile_images',blank=True)
     bio = models.TextField(blank=True)
     date_of_birth = models.DateField(blank=True)
+
+    MALE = 'Male'
+    FEMALE = 'Female'
+    NOT_SPECIFIED = 'Not Specified'
+
     GENDER_CHOICES = (
-        ('Male', 'Male'), ('Female', 'Female'),
+        (MALE, 'Male'), (FEMALE, 'Female'), (NOT_SPECIFIED, 'Not Specified'),
     )
-    gender = models.CharField(choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=NOT_SPEFICIED)
 
     def calculate_age(self):
         today = date.today()
@@ -54,7 +59,7 @@ class Story(models.Model):
     title = models.CharField(max_length = 128, unique=True)
     author = models.ForeignKey(User)
     category = models.ForeignKey(Category)
-    dateTime = models.DateTimeField(auto_now_add = True)
+    created_datetime = models.DateTimeField(auto_now_add = True)
     slug = models.SlugField()
 
     def __unicode__(self):
