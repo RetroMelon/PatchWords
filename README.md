@@ -64,6 +64,8 @@ A collaborative story telling platform made with Django. For Web App Development
 ### Misc
 - ~~start project~~
 - ~~create a population script~~
+- ~~set up url paths~~
+- ~~set up template and static dirs~~
 
 ###Database
 - ~~User~~
