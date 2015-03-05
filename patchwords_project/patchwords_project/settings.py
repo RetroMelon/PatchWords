@@ -24,13 +24,6 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'patchwords/templates')
-
-# Templates folders
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'patchwords/templates'),
-)
-
 ALLOWED_HOSTS = []
 
 
@@ -43,8 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'registration',
     'patchwords',
-    'registration'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -90,7 +83,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'patchwords/templates')
 
+# Templates folders
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'patchwords/templates'),
+)
 
 
 STATIC_URL = '/static/'
