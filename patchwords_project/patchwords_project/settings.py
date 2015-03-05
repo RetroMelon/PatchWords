@@ -24,6 +24,13 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'patchwords/templates')
+
+# Templates folders
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'patchwords/templates'),
+)
+
 ALLOWED_HOSTS = []
 
 
@@ -37,6 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'patchwords',
+    'registration'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,11 +86,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Templates folders
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'patchwords/templates'),
-)
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
@@ -97,3 +100,9 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.""
 )
+
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/patchwords/'
+LOGIN_URL = '/accounts/login/'
