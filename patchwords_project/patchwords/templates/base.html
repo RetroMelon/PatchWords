@@ -3,13 +3,34 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>{% block title %}Patchwords{% endblock %}</title>
+<title>{% block title %}Patchwords{% endblock %}</title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"></link>
+{% block css_imports %}{% endblock %}
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Patchwords</a>
+    <form class="navbar-form" role="search">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search">
+        <span class="input-group-btn">
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        </span>
+    </form>
+  </div>
+</nav>
+
 </head>
 
 <body>
   <div>
-    Base template, yo.
     {% block body %}{% endblock %}
   </div>
 </body>
+
+<footer>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  {% block js_imports %}{% endblock %}
+</footer>
 </html>
