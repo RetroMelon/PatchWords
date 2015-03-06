@@ -43,6 +43,7 @@ def populate_story():
     categories = Category.objects.all()
 
     titles = ["Story 1", "Dude, what have you done with my cat.", "Stack overflow - you da real MVP", "A wintery day", "A non-wintery day", "death by javascript", "git merge -f... NO WAIT",]
+    add_story("teststory","johnnyboy95","Horror")
     for t in titles:
         add_story(t, random.choice(users), random.choice(categories))
 

@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from patchwords import forms
+from models import Story,Category
+
 import sys
+
 
 # Create your views here.
 def home(request):
@@ -39,3 +42,9 @@ def category(request, category_name_slug):
     context_dict['stories'] = stories
 
     return(request, 'category.html', context_dict)
+
+#will add story_name_slug but for the moment just request
+def story(request, story_name_slug):
+    story = Story.objects.get(slug=story_name_slug)
+    return render(request, 'story.html', {})
+

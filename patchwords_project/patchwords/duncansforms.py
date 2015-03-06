@@ -14,5 +14,6 @@ class NewParagraph(forms.ModelForm):
         model = Paragraph
         exclude = ('story', 'parent', 'author','created_datetime')
 
-#class Favourite(forms.ModelForm):
+
+
 
