@@ -43,3 +43,7 @@ def category(request, category_name_slug):
     context_dict['stories'] = stories_map[-20]
 
     return(request, 'category.html', context_dict)
+
+def allCategories(request):
+    categories = Category.objects.all().sortBy("title")
+    return(request, 'allCategories.html',{'categories': categories})
