@@ -1,0 +1,26 @@
+.story-item {
+  background-color: white;
+  width: 100%;
+  height: 180px;
+}
+
+.story-item .story-item-title {
+  display: inline-block;
+  height: 100%;
+  width: 30%;
+  left: 0px;
+}
+
+.story-item .story-item-content {
+  display: inline-block;
+  height: 100%;
+  width: 40%;
+  left: 30%;
+}
+
+.story-item .story-item-favourites-wrapper {
+  display: inline-block;
+  height: 100%;
+  width: 30%;
+  right: 0px;
+}

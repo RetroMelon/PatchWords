@@ -70,22 +70,24 @@ A collaborative story telling platform made with Django. For Web App Development
 ###Database
 - ~~User~~
 - ~~Story~~
+    - add favourites() property - Joe
 - ~~Category~~
 - ~~Paragraph~~
 - ~~Like~~
 - ~~Favourite~~
 
 ###Forms
-- NewStory
-- NewParagraph
-- Search
-- Like
-- Favourite
+- NewStory - Alex
+- NewParagraph - Duncan
+- Search - 
+- Like 
+- Favourite 
 
 ### Views
-- home
+- home - Joe
 - user
-- category
+- all categories
+- category - Alex
 - story
 - search
 - settings
@@ -101,10 +103,17 @@ A collaborative story telling platform made with Django. For Web App Development
 - load_subtree
 
 ### Templates
-- base
-- home
+- base - Joe
+    - **parameters for template** 
+    - user (user model)
+- home - Joe
+    - **parameters for template**
+    - user (user model)
+    - top_categories (list of top 15 category models)
+    - top_stories (list of stories ordered by favourites)
 - user
 - category
+    - top_stories (list)
 - story
 - search
 - settings

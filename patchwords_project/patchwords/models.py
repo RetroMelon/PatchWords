@@ -20,7 +20,8 @@ class UserProfile(models.Model):
 
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=NOT_SPECIFIED)
 
-    def calculate_age(self):
+    @property
+    def age(self):
         today = date.today()
         date_of_birth = self.date_of_birth
         return today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
@@ -54,6 +55,18 @@ class Story(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Story, self).save(*args, **kwargs)
+
+    @property
+    def favourites(self):
+        #getting all of the favourites for this story from the database
+        favourites_list = Favourite.objects.filter(story=self)
+        #returning the count
+        return len(favourites_list)
+
+    @property
+    def outline(self):
+        root_paragraph = Paragraph.objects.get(story=self, parent=None)
+        return root_paragraph.content
 
     def __unicode__(self):
         return self.title

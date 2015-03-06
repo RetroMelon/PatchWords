@@ -9,6 +9,8 @@ from patchwords.views import story
 class MyRegistrationView(RegistrationView):
     def get_form_class(self,request):
         return Registration
+    def get_success_url(self,request,user):
+        return '/patchwords/'
 
 
 urlpatterns = patterns('',

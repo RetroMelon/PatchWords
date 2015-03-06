@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from patchwords import forms
+<<<<<<< HEAD
 from models import Story,Category
 
+=======
+from patchwords.models import *
+>>>>>>> 5f450ae1247ff8a8ecb7dc2ca28c0218ab252368
 import sys
 
 
@@ -10,6 +14,17 @@ import sys
 def home(request):
     return render(request, 'home.html', {})
 
+def test_stories_chunk(request):
+    context_dict = {}
+    #sorts the data, the stories entry into context_dict is a list of tuples
+    #with the story name and the number of favorites
+    stories = Story.objects.all()
+    stories_map = map(lambda x : (x.favourites, x), stories)
+    stories_map.sort()
+    stories_map.reverse()
+    context_dict['stories'] = stories_map[:20]
+
+    return render(request, 'test_stories_chunk.html', context_dict)
 
 
 
@@ -32,15 +47,42 @@ def test_form(request):
         return render(request, 'test_form.html', {'form': form_class(), 'form_name': form_name})
 
 def category(request, category_name_slug):
-
-    category = Category.objects.get(slug=category_name_slug) 
-    context_dict['category'] = category 
+    category = Category.objects.get(slug=category_name_slug)
+    context_dict['category'] = category
     context_dict['category_name_slug'] = category_name_slug
 
-    #doesnt order the stories... yet
-    stories = Page.objects.filter(category=category)
-    context_dict['stories'] = stories
+    #sorts the data, the stories entry into context_dict is a list of tuples
+    #with the story name and the number of favorites
+    stories = Story.objects.filter(category=category)
+    stories_map = (lambda x : (x.favorites, x), stories)
+    stories_map.sort()
+    stories_map.reverse()
+    context_dict['stories'] = stories_map[:20]
 
+    return render(request, 'category.html', context_dict)
+
+def allCategories(request):
+    categories = Category.objects.all().sortBy("title")
+    categories_map = (lambda x: (x.title, x.slug), categories)
+    return render(request, 'allCategories.html',{'categories': categories_map})
+    
+def user(request, username):
+    context_dict = {}
+    user = UserProfile.objects.get(name = username)
+    context_dict['name'] = user.user
+    context_dict['bio'] = user.bio
+    context_dict['age'] = user.age
+    context_dict['picture'] = user.picture
+
+    stories = Stories.objects.get(user = author)
+    stories_map = (lambda x : (x.favorites, x), stories)
+    stories_map.sort()
+    stories_map.reverse()
+    context_dict['storiesMostRecent'] = stories_map[:5]
+
+    stories = stories = Stories.objects.get(user = author).sortBy('-created_datetime')[:5]
+
+<<<<<<< HEAD
     return(request, 'category.html', context_dict)
 
 #will add story_name_slug but for the moment just request
@@ -48,3 +90,8 @@ def story(request, story_name_slug):
     story = Story.objects.get(slug=story_name_slug)
     return render(request, 'story.html', {})
 
+=======
+    #need to add the most contributed paragraphs and highest liked paragraphs    
+    
+    return render(request, 'user.html', context_dict)
+>>>>>>> 5f450ae1247ff8a8ecb7dc2ca28c0218ab252368
