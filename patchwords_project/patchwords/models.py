@@ -55,6 +55,13 @@ class Story(models.Model):
         self.slug = slugify(self.title)
         super(Story, self).save(*args, **kwargs)
 
+    @property
+    def favourites(self):
+        #getting all of the favourites for this story from the database
+        favourites_list = Favourite.objects.filter(story=self)
+        #returning the count
+        return len(favourites_list)
+
     def __unicode__(self):
         return self.title
 
