@@ -27,3 +27,15 @@ def test_form(request):
         return HttpResponse("Your POST looked like this:  <br><br>" + return_string)
     else:
         return render(request, 'test_form.html', {'form': form_class(), 'form_name': form_name})
+
+def category(request, category_name_slug):
+
+    category = Category.objects.get(slug=category_name_slug) 
+    context_dict['category'] = category 
+    context_dict['category_name_slug'] = category_name_slug
+
+    #doesnt order the stories... yet
+    stories = Page.objects.filter(category=category)
+    context_dict['stories'] = stories
+
+    return(request, 'category.html', context_dict)
