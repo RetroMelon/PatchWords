@@ -68,7 +68,7 @@ class Story(models.Model):
 
 class Paragraph(models.Model):
     created_datetime = models.DateTimeField(auto_now_add = True)
-
+    
     content = models.CharField(max_length=200)
     story = models.ForeignKey(Story)
     parent = models.ForeignKey('self', null=True)
