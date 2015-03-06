@@ -1,10 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+{% load staticfiles %}
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>{% block title %}Patchwords{% endblock %}</title>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="{% static "css/base.css" %}" rel="stylesheet"></link>
 {% block css_imports %}{% endblock %}
 
 
@@ -13,11 +16,24 @@
     <a class="navbar-brand" href="#">Patchwords</a>
     <form class="navbar-form" role="search">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search">
+        <input type="text" class="form-control" placeholder="Find stories, users, paragraphs."></input>
         <span class="input-group-btn">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          <button class="btn btn-default" type="button">
+            Search
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
         </span>
     </form>
+
+    <div class="nav navbar-nav navbar-right">
+      <a href="#">
+        {% if user.isauthenticated %}
+          {{ user.username }}
+        {% else %}
+          LOGIN/REGISTER WILL BE HERE
+        {% endif %}
+      </a>
+    </div>
   </div>
 </nav>
 

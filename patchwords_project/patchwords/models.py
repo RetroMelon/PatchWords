@@ -62,13 +62,18 @@ class Story(models.Model):
         #returning the count
         return len(favourites_list)
 
+    @property
+    def outline(self):
+        root_paragraph = Paragraph.objects.get(story=self, parent=None)
+        return root_paragraph.content
+
     def __unicode__(self):
         return self.title
 
 
 class Paragraph(models.Model):
     created_datetime = models.DateTimeField(auto_now_add = True)
-    
+
     content = models.CharField(max_length=200)
     story = models.ForeignKey(Story)
     parent = models.ForeignKey('self', null=True)
