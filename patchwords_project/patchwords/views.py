@@ -53,8 +53,9 @@ def category(request, category_name_slug):
     stories_map.reverse()
     context_dict['stories'] = stories_map[:20]
 
-    return(request, 'category.html', context_dict)
+    return render(request, 'category.html', context_dict)
 
 def allCategories(request):
     categories = Category.objects.all().sortBy("title")
-    return(request, 'allCategories.html',{'categories': categories})
+    categories_map = (lambda x: (x.title, x.slug), categories)
+    return render(request, 'allCategories.html',{'categories': categories_map})
