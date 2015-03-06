@@ -8,6 +8,8 @@ from patchwords.forms import Registration
 class MyRegistrationView(RegistrationView):
     def get_form_class(self,request):
         return Registration
+    def get_success_url(self,request,user):
+        return '/patchwords/'
 
 urlpatterns = patterns('',
 
