@@ -59,3 +59,23 @@ def allCategories(request):
     categories = Category.objects.all().sortBy("title")
     categories_map = (lambda x: (x.title, x.slug), categories)
     return render(request, 'allCategories.html',{'categories': categories_map})
+    
+def user(request, username):
+    context_dict = {}
+    user = UserProfile.objects.get(name = username)
+    context_dict['name'] = user.user
+    context_dict['bio'] = user.bio
+    context_dict['age'] = user.age
+    context_dict['picture'] = user.picture
+
+    stories = Stories.objects.get(user = author)
+    stories_map = (lambda x : (x.favorites, x), stories)
+    stories_map.sort()
+    stories_map.reverse()
+    context_dict['storiesMostRecent'] = stories_map[:5]
+
+    stories = stories = Stories.objects.get(user = author).sortBy('-created_datetime')[:5]
+
+    #need to add the most contributed paragraphs and highest liked paragraphs    
+    
+    return render(request, 'user.html', context_dict)
