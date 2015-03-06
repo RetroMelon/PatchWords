@@ -30,12 +30,16 @@ def test_form(request):
 
 def category(request, category_name_slug):
 
-    category = Category.objects.get(slug=category_name_slug) 
+    category = Category.objects.get(slug=category_name_slug)
     context_dict['category'] = category 
     context_dict['category_name_slug'] = category_name_slug
 
-    #doesnt order the stories... yet
+    #sorts the data, the stories entry into context_dict is a list of tuples 
+    #with the story name and the number of favorites
     stories = Page.objects.filter(category=category)
-    context_dict['stories'] = stories
+    stories_map = (lambda x : (x.favorites, x), stories)
+    stories_map = stories_map.sort()
+    stories_map = stories_map.reverse()
+    context_dict['stories'] = stories_map[-20]
 
     return(request, 'category.html', context_dict)
