@@ -70,7 +70,7 @@ A collaborative story telling platform made with Django. For Web App Development
 ###Database
 - ~~User~~
 - ~~Story~~
-    - add favourites() property - Joe
+    - ~~add favourites() property - Joe~~
 - ~~Category~~
 - ~~Paragraph~~
 - ~~Like~~
@@ -86,8 +86,8 @@ A collaborative story telling platform made with Django. For Web App Development
 ### Views
 - home - Joe
 - user
-- all categories
-- category - Alex
+- all categories - Alex
+- category - Alex (Use the queries.py getStories)
 - story
 - search
 - settings
