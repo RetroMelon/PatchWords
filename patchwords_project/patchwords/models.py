@@ -39,6 +39,11 @@ class Category(models.Model):
         self.slug = slugify(self.title)
         super(Category, self).save(*args, **kwargs)
 
+    #gets the total number of stories in this category
+    @property
+    def total_stories(self):
+        return len(Story.objects.filter(category=self))
+
     def __unicode__(self):
         return self.title
 

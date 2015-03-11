@@ -4,7 +4,8 @@ from views import story
 
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
-    url(r'^testform', views.test_form, name='testform'),
     url(r'^story/(?P<story_name_slug>[/w/-]+)/$', story, name='story'),
-    url(r'^teststorylist', views.test_story_list, name='teststorylist'),
+
+    #allows the homepage/categories page to request more of the most popular stories.
+    url(r'^gettopstories', views.get_top_stories, name='get_top_stories'),
 )

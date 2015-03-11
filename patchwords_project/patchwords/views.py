@@ -3,44 +3,43 @@ from django.http import HttpResponse
 from patchwords import forms
 from models import Story,Category
 from patchwords.models import *
-import sys
+import sys, queries
 
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html', {})
-
-def test_story_list(request):
     context_dict = {}
-    #sorts the data, the stories entry into context_dict is a list of tuples
-    #with the story name and the number of favorites
-    stories = Story.objects.all()
-    stories_map = map(lambda x : (x.favourites, x), stories)
-    stories_map.sort()
-    stories_map.reverse()
-    context_dict['stories'] = stories_map[:20]
 
-    return render(request, 'test_stories_list.html', context_dict)
+    #getting the most popular categories
+    categories = queries.getTopCategories()
+    context_dict['categories'] = categories
+
+    #getting the most popular stories
+    stories = queries.getTopStories(start=0, end=2)
+    context_dict['stories'] = stories
+
+    return render(request, 'home.html', context_dict)
 
 
+def get_top_stories(request):
+    if request.method == 'GET':
+        start = int(request.GET.get('start', 0))
+        end = int(request.GET.get('end', 2))
+        category = request.GET.get('category', "")
 
-# Allows you to test a form by using ?form=<form_name>
-def test_form(request):
-    #turns the url parameter in to a class
-    def str2Class(str):
-        x = getattr(forms, str)
-        return x
-    #then the request must be a GET
-    #getting the form name we want to test from the request
-    form_name = request.GET.get("form", "")
-    form_class = str2Class(form_name)
+        try:
+            category = Category.objects.get(title=category)
+        except:
+            category = None
 
-    if request.method == "POST":
-        return_string = str(request.POST)
-        print return_string
-        return HttpResponse("Your POST looked like this:  <br><br>" + return_string)
-    else:
-        return render(request, 'test_form.html', {'form': form_class(), 'form_name': form_name})
+        context_dict = {}
+
+        stories = queries.getTopStories(start, end, category)
+        context_dict['stories'] = stories
+
+        return render(request, 'stories_list.html', context_dict)
+
+
 
 def category(request, category_name_slug):
     category = Category.objects.get(slug=category_name_slug)
@@ -57,10 +56,10 @@ def category(request, category_name_slug):
 
     return render(request, 'category.html', context_dict)
 
-def allCategories(request):
+def all_categories(request):
     categories = Category.objects.all().sortBy("title")
     categories_map = (lambda x: (x.title, x.slug), categories)
-    return render(request, 'allCategories.html',{'categories': categories_map})
+    return render(request, 'all_categories.html',{'categories': categories_map})
 
 def user(request, username):
     context_dict = {}

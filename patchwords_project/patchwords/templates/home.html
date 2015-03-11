@@ -4,9 +4,41 @@
 {% block title %}Patchwords Home{% endblock %}
 
 {% block body %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Post story will go here.</h1>
+    <p>...</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+  </div>
+</div>
+<div class="container">
+  <div id="categories-section">
+    {% if categories %}
+      <ul>
+      {% for c in categories %}
+              <li>{{c.title}} ({{c.total_stories}})</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+
+
+  <div id="stories-section">
+    {% if stories %}
+      {% include 'stories_list.html' %}
+    {% endif %}
+  </div>
+
 
   <div>
     <img src="{% static "images/300placeholder.gif" %}" alt="" />
   </div>
+</div>
+{% endblock %}
 
+{% block js_imports %}
+  <script src="{% static 'js/getMoreStories.js' %}"></script>
+  <script charset="utf-8">
+    categoryTitle = ""; //In the category pages, this will be used to filter by category using {{category.title}}
+  </script>
 {% endblock %}
