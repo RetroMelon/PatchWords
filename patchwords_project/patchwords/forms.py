@@ -1,6 +1,8 @@
 from django import forms
 from registration.forms import RegistrationForm
-#from patchwords.models import Paragraph
+from django.contrib.auth.models import User
+
+from patchwords.models import UserProfile
 
 class Registration(RegistrationForm):
     picture = forms.ImageField(required=False)
@@ -26,6 +28,20 @@ class NewParagraph(forms.ModelForm):
         #model = Paragraph
         exclude = ('story', 'parent', 'author','created_datetime')
 
-#class Favourite(forms.ModelForm):
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
 
+    class Meta:
+        model = User
+        fields = ('username', 'email','password')
 
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+
+class UserLogin(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields =('username', 'password')

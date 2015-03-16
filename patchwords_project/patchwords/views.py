@@ -1,10 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from patchwords import forms
-from models import Story,Category
+from django.shortcuts import render,HttpResponseRedirect,HttpResponse
 from patchwords.models import *
 import sys, queries
-
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def home(request):
@@ -42,6 +39,7 @@ def get_top_stories(request):
 
 
 def category(request, category_name_slug):
+    context_dict= {}
     category = Category.objects.get(slug=category_name_slug)
     context_dict['category'] = category
     context_dict['category_name_slug'] = category_name_slug
@@ -69,13 +67,13 @@ def user(request, username):
     context_dict['age'] = user.age
     context_dict['picture'] = user.picture
 
-    stories = Stories.objects.get(user = author)
+    stories = Story.objects.get(user = author)
     stories_map = (lambda x : (x.favorites, x), stories)
     stories_map.sort()
     stories_map.reverse()
     context_dict['storiesMostRecent'] = stories_map[:5]
 
-    stories = stories = Stories.objects.get(user = author).sortBy('-created_datetime')[:5]
+    stories = stories = Story.objects.get(user = author).sortBy('-created_datetime')[:5]
 
     return(request, 'category.html', context_dict)
 
@@ -86,3 +84,4 @@ def story(request, story_name_slug):
     #need to add the most contributed paragraphs and highest liked paragraphs
 
     return render(request, 'user.html', context_dict)
+
