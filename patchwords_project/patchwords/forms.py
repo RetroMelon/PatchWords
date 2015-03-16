@@ -28,18 +28,3 @@ class NewParagraph(forms.ModelForm):
         #model = Paragraph
         exclude = ('story', 'parent', 'author','created_datetime')
 
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields = ('username', 'email','password')
-
-
-
-class UserLogin(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields =('username', 'password')
