@@ -25,29 +25,25 @@
         </span>
     </form>
 
-    <div class="nav navbar-nav navbar-right">
-      <a href="#">
-        {% if user.isauthenticated %}
-          {{ user.username }}
-        {% else %}
-          LOGIN/REGISTER WILL BE HERE
-        {% endif %}
-      </a>
-    </div>
+  <div class="nav navbar-nav navbar-right">
+    <a href="#">
+      {% if user.is_authenticated %}
+        {{ user.username }}
+        <li><a href="{% url 'auth_logout' %}?next=/patchwords/">Logout</a></li>
+      {% else %}
+        <li><a href="{% url 'auth_login' %}?next=/patchwords/">Login</a></li>
+        <li><a href="{% url 'registration_register' %}">Register Here</a></li>
+      {% endif %}
+    </a>
   </div>
+</div>
+
 </nav>
 
 </head>
 
 <body>
   <div>
-  <style type="text/css">
-  .imageBox {
-    width:1000;
-    height:1000;
-    background-image:url("static/images/background.jpg");
-    }
-    </style>
     {% block body %}{% endblock %}
   </div>
 </body>
