@@ -1,11 +1,74 @@
+.navbar {
+  background-color: aquamarine;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.jumbotron {
+  padding: 0px 0px;
+  height: 350px;
+  background-color: white;
+}
+
+#explanation-gif {
+  height:100%;
+}
+
+#jumbotron-container {
+  height: 100%;
+}
+
+#main-content {
+  padding: 40px 0px;
+  background-color: aquamarine;
+}
+
+#categories-section {
+  background-color: white;
+  padding: 10px 20px;
+  vertical-align: center;
+}
+
+#categories-list li {
+  display: inline;
+  padding-right: 20px;
+
+}
+
 .story-item {
   position: relative;
   display: block;
   background-color: white;
-  width: 100%;
-  height: 180px;
+  width: auto;
+  height: 100px;
+  padding: 20px 10px;
 }
 
-.story-item {
-  display: inline;
+.story-item div {
+  display: inline-block;
+  -webkit-transform: translate(0%, -15%);
+  transform: translate(0%, -15%);
+}
+
+.story-item .story-item-title {
+  left: 0px;
+  width: 25%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.story-item .story-item-content {
+  height: auto;
+  width: 50%;
+  padding: 10px 30px;
+  text-overflow: ellipsis;
+}
+
+.story-item .story-item-favourites {
+  right: 0px;
+  width: 20%;
+  font-size: 26px;
+  text-align: center;
 }

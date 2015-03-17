@@ -4,12 +4,8 @@
 {% block title %}Patchwords Home{% endblock %}
 
 {% block body %}
-
-<div class="container" >
-    
-</div>
 <div class="jumbotron">
-  <div class="container">
+  <div class="container" id="jumbotron-container">
       {% if user.is_authenticated %}
       <h1>Post story will go here.</h1>
       <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
@@ -18,31 +14,36 @@
 	 align login/register/login to the right.
       <p>...</p>
       {% else %}
-      <img class="center-block" width="450" height="228" src="{% static "images/explanationgif.gif" %}" alt="" />
+      <img class="center-block" id="explanation-gif" src="{% static "images/explanationgif.gif" %}" alt="" />
       {% endif %}
   </div>
 </div>
-<div class="container">
-  <div id="categories-section">
-    {% if categories %}
-      <ul>
-      {% for c in categories %}
-              <li>{{c.title}} ({{c.total_stories}})</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+<div id="main-content">
+  <div class="container">
+    <div class="row">
+      <h2 class="pull-left">Categories</h2>
+      <h3 class="pull-right">view all ></h3>
+    </div>
 
+    <div class="content-section" id="categories-section">
+      {% if categories %}
+        <ul id="categories-list">
+        {% for c in categories %}
+                <li><a href="/patchwords/category/{{c.slug}}">{{c.title}} ({{c.total_stories}})</a></li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
 
-  <div id="stories-section">
-    {% if stories %}
-      {% include 'stories_list.html' %}
-    {% endif %}
-  </div>
+    <div class="row">
+      <h2 class="pull-left">Top Stories</h2>
+    </div>
 
-
-  <div>
-    <img src="{% static "images/300placeholder.gif" %}" alt="" />
+    <div id="content-section stories-section">
+      {% if stories %}
+        {% include 'stories_list.html' %}
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock %}
