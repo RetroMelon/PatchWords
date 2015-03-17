@@ -1,20 +1,18 @@
 from django import forms
 from registration.forms import RegistrationForm
 from django.contrib.auth.models import User
-
-from patchwords.models import UserProfile
+from models import UserProfile
 
 class Registration(RegistrationForm):
     picture = forms.ImageField(required=False)
     bio = forms.CharField(widget=forms.Textarea(),required=False)
-    date_of_birth = forms.DateField(input_formats=['%Y-%m-%d'],required=False)
+    date_of_birth = forms.DateField(input_formats=['%d/%m/%Y'],required=False)
     GENDER_CHOICES = (
-            ("Male", "Male"),
-            ("Female", "Female"),
-            )
-    gender = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                         choices=GENDER_CHOICES,required=False,
-                                         )
+        ("Male", "Male"),
+        ("Female", "Female"),
+    )
+    gender = forms.ChoiceField(widget=forms.RadioSelect,
+                               choices=GENDER_CHOICES,required=False)
 
 
 class NewParagraph(forms.ModelForm):

@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponseRedirect,HttpResponse
-from patchwords.models import *
+from models import *
 import sys, queries
+
 
 from django.contrib.auth import authenticate, login
 

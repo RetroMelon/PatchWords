@@ -99,6 +99,9 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.""
 )
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
