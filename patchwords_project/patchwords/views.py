@@ -46,12 +46,8 @@ def category(request, category_name_slug):
     context_dict['category'] = category
     context_dict['category_name_slug'] = category_name_slug
 
-    #sorts the data, the stories entry into context_dict is a list of tuples
-    #with the story name and the number of favorites
-    stories = Story.objects.filter(category=category)
-    stories_map = (lambda x : (x.favorites, x), stories)
-    stories_map.sort()
-    stories_map.reverse()
+    #stories = Story.objects.filter(category=category)
+    stories = queries.getTopStories(start=0, end=2)
     context_dict['stories'] = stories_map[:20]
 
     return render(request, 'category.html', context_dict)
