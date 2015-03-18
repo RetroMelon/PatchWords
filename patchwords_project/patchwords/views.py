@@ -119,14 +119,13 @@ def story(request, story_name_slug):
     return render(request, 'user.html', context_dict)
 
 def search(request):
-     q = request.GET.get("q")
-     if q:
-        # you may want to use `__istartswith' instead
-        story_results = Story.objects.filter(name__icontains=q)
-        user_results = User.objects.filter(name_icontainers=q)
-     else:
-        # you may want to return Customer.objects.none() instead
-        results = Story.objects.none()
-     context = dict(results=results, q=q)
-     return render(request, "search.html", context)
-
+    q = request.GET.get("q")
+    if q:
+       # you may want to use `__istartswith' instead
+       story_results = Story.objects.filter(name__icontains=q)
+       user_results = User.objects.filter(name_icontainers=q)
+    else:
+       # you may want to return Customer.objects.none() instead
+       results = Story.objects.none()
+    context = dict(results=results, q=q)
+    return render(request, "search.html", context)
