@@ -1,6 +1,7 @@
 <div id="stories-list">
   {% if stories %}
   {% for story in stories %}
+  <a href="{% url 'story' 'hi' %}">
     <div class="story-item">
         <div class="story-item-title">
           <h4 class="story-title">
@@ -21,6 +22,7 @@
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{story.favourites}}
         </div>
     </div>
+  </a>
   {% endfor %}
   {% else %}
   <h2>
