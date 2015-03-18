@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block body %}
+<form id="edit_profile_form" method="post" action="/patchwords/edit_profile/" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ user_form.as_p }}
+	<a href="{% url 'auth_password_change' %}">Change password</a>
+	{{ user_profile_form.as_p }}
+<input type="submit" name="submit" value="Update" />
+</form>
+{% endblock %}

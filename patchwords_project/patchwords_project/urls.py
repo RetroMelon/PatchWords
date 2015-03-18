@@ -5,6 +5,7 @@ from django.contrib import admin
 import registration.backends.default.urls
 from registration.backends.simple.views import RegistrationView
 from patchwords.forms import Registration
+from patchwords.views import profile
 
 class MyRegistrationView(RegistrationView):
      def get_form_class(self,request):

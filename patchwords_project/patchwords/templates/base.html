@@ -36,7 +36,7 @@
     <div class="navbar-collapse collapse">
       <div class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
-            <a href="#">{{ user.username }}</a>
+            <a href="{% url 'profile' user.username%}">{{ user.username }}</a>
             <a href="{% url 'auth_logout' %}?next=/patchwords/">Logout</a>
           {% else %}
             <a href="{% url 'auth_login' %}?next=/patchwords/">Login</a>

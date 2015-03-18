@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block body %}
+	
+	<div class="page-header">
+		<h1>{{ user.username }}</h1>
+    </div>
+	
+	<div>
+		{% if user.email %}
+			<p>Email address: {{ user.email }}</p>
+		{% endif %}
+		{% if user_profile.picture %}
+	    	<img src="{{ user_profile.picture.url }}" />
+	    {% endif %}
+		{% if user_profile.bio %}
+			<p>Bio: {{ user_profile.bio }}</p>
+	    {% endif %}
+		{% if user_profile.date_of_birth %}
+			<p>Age: {{ user_profile.age }}</p>
+		{% endif %}
+		{% if user_profile.gender %}
+			<p>Gender:{{ user_profile.gender }}</p>
+	    {% endif %}
+	</div>
+	
+	{% if flag %}
+	<a href="{% url 'edit_profile' %}">Edit Profile</a>
+	{% endif %}
+	
+{% endblock %}

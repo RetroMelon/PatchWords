@@ -15,10 +15,10 @@ class UserProfile(models.Model):
     NOT_SPECIFIED = 'Not Specified'
 
     GENDER_CHOICES = (
-        (MALE, 'Male'), (FEMALE, 'Female'), (NOT_SPECIFIED, 'Not Specified'),
+        (MALE, 'Male'), (FEMALE, 'Female'),
     )
 
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=NOT_SPECIFIED)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True,default=None)
 
     @property
     def age(self):
@@ -28,6 +28,7 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return self.user.username
+
 
 import signals
 

@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<head>
-<title>Login</title>
-</head>
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block body %}
 <h1>Login</h1>
         <form method="post" action=".">
                 {% csrf_token %}
                 {{ form.as_p }}
 
-                <input type="submit" value="Submit" />
-        </form>
-    <a href="{% url 'registration_register' %}">Not Registered? Register Here</a>
-<body>
-</body>
-</html>
+                <input type="submit" value="Log in" />
+                <input type="hidden" name="next" value="{{ next }}" />
+                </form>
+
+        <p>Not  a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+{% endblock %}

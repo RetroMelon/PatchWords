@@ -1,4 +1,4 @@
-from registration.signals import user_registered, user_activated
+from registration.signals import user_registered
 from models import UserProfile
 from forms import Registration
 import datetime
@@ -18,7 +18,7 @@ def user_created(sender, user, request, **kwargs):
         d = datetime.datetime.strptime(string_date_formatted, "%Y%m%d").date()
         data.date_of_birth = d
     except:
-        data.date_of_birth = date(0001,01,01)
+        data.date_of_birth = None
     try:
         data.gender = form.data["gender"]
     except:
