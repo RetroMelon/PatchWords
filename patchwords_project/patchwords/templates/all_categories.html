@@ -20,14 +20,17 @@
   </div>
 </div>
 <div id="main-content">
+	<div class="container">
       {% if categories %}
-		<ul>
-        {% for category in categories %}
-					<li><a href="/patchwords/category/{{category.1}}">{{category.0}} ({{category.total_stories}})</a></li>
-                {% endfor %}
-                </ul>
-        {% else %}
+	  <h2 class = "text-white">All Categories</h2>
+	  <ul>
+      {% for category in categories %}
+				<li><a href="/patchwords/category/{{category.slug}}"><h3 class="text-white">{{category.title}}</h3></a></li>
+      {% endfor %}
+	  </ul>
+      {% else %}
                 <strong>No Categories exist at the moment, sorry</strong>
-        {% endif %}
+      {% endif %}
+	  </div>
 </div>
 {% endblock %}
