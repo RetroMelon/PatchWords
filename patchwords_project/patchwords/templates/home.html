@@ -23,14 +23,14 @@
   <div class="container">
     <div class="row">
       <h2 class="pull-left text-white">Categories</h2>
-      <h3 class="pull-right text-white">view all <span class="glyphicon glyphicon-chevron-right"></span></h3>
+      <h3 class="pull-right text-white"><a href="{% url 'all_categories' %}">view all</a><span class="glyphicon glyphicon-chevron-right"></span></h3>
     </div>
 
     <div class="content-section" id="categories-section">
       {% if categories %}
         <ul id="categories-list">
         {% for c in categories %}
-                <li><a href="/patchwords/category/{{c.slug}}">{{c.title}} <span class="badge">{{c.total_stories}}</span></a></li>
+                <li><a href="{% url 'category' c.slug %}">{{c.title}} <span class="badge">{{c.total_stories}}</span></a></li>
         {% endfor %}
         </ul>
       {% endif %}

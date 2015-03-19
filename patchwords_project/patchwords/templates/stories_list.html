@@ -1,7 +1,7 @@
 <div id="stories-list">
   {% if stories %}
   {% for story in stories %}
-  <a href="">
+  <a href="{% url 'story' story.slug %}">
     <div class="story-item">
         <div class="story-item-title vcenter">
           <h4 class="story-title text-black">
@@ -12,8 +12,8 @@
           </p>
         </div>
         <div class="story-item-content vcenter">
-          {% if story.outline%}
-            {{story.outline}}
+          {% if story.outline %}
+            {{story.outline}} 
           {% else %}
             <span class="text-muted">There aint no description for this story...</span>
           {% endif %}

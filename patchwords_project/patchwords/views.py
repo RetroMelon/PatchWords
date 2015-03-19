@@ -45,8 +45,8 @@ def category(request, category_name_slug):
     context_dict['category_name_slug'] = category_name_slug
 
     #stories = Story.objects.filter(category=category)
-    stories = queries.getTopStories(start=0, end=2)
-    context_dict['stories'] = stories_map[:20]
+    stories = queries.getTopStories()
+    context_dict['stories'] = stories[:20]
 
     return render(request, 'category.html', context_dict)
 

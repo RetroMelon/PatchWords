@@ -19,10 +19,10 @@
       {% endif %}
   </div>
 </div>
-<div id="main-content">
+<div class="background-red" id="main-content">
   <div class="container">
     <div class="row">
-      <h2 class="pull-left">Top Stories</h2>
+      <h2 class="pull-left">Top {{category}}</h2>
     </div>
 
     <div id="content-section stories-section">
@@ -37,6 +37,6 @@
 {% block js_imports %}
   <script src="{% static 'js/getMoreStories.js' %}"></script>
   <script charset="utf-8">
-    categoryTitle = {{category.title}}; //In the category pages, this will be used to filter by category using {{category.title}}
+    categoryTitle = "{{category.title}}"; //In the category pages, this will be used to filter by category using {{category.title}}
   </script>
 {% endblock %}
