@@ -1,0 +1,22 @@
+h1{
+	text-align: center;
+}
+
+img{
+	max-width: 100%;
+	max-height: 300px;
+}
+
+ul{
+	list-style-type: none;
+}
+
+.row{
+    overflow: hidden; 
+}
+
+[class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+

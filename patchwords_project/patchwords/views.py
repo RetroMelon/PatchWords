@@ -75,7 +75,7 @@ def edit_profile(request):
     else:
         user_data = {'username': user_profile.user.username,'email':user_profile.user.email}
         user_profile_data = {'picture': user_profile.picture, 'bio':user_profile.bio,
-                             'gender':'Male'}
+                             'gender':user_profile.gender}
         context_dict = {}
         context_dict['user_form'] = UserForm(initial=user_data)
         context_dict['user_profile_form'] = UserProfileForm(initial=user_profile_data)
@@ -99,13 +99,13 @@ def profile(request, username, user_profile=None):
         context_dict['flag'] = (actual_user.username == username)
 
 
-    #stories = Story.objects.get(user = author)
+    #stories = Story.objects.get(author = user_profile)
     #stories_map = (lambda x : (x.favorites, x), stories)
     #stories_map.sort()
     #stories_map.reverse()
     #context_dict['storiesMostRecent'] = stories_map[:5]
 
-    #stories = Story.objects.get(user = author).sortBy('-created_datetime')[:5]
+    #stories = Story.objects.get(author = user_profile).sortBy('-created_datetime')[:5]
 
     return render(request, 'profile.html', context_dict)
 
