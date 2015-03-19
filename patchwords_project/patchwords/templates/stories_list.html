@@ -1,25 +1,25 @@
 <div id="stories-list">
   {% if stories %}
   {% for story in stories %}
-  <a href="{% url 'story' 'hi' %}">
+  <a href="">
     <div class="story-item">
-        <div class="story-item-title">
-          <h4 class="story-title">
+        <div class="story-item-title vcenter">
+          <h4 class="story-title text-black">
             {{story.title}}
           </h4>
           <p class="text-muted story-author">
             by {{story.author}}
           </p>
         </div>
-        <div class="story-item-content">
+        <div class="story-item-content vcenter">
           {% if story.outline%}
             {{story.outline}}
           {% else %}
             <span class="text-muted">There aint no description for this story...</span>
           {% endif %}
         </div>
-        <div class="story-item-favourites">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{story.favourites}}
+        <div class="story-item-favourites vcenter">
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>{{story.favourites}}
         </div>
     </div>
   </a>

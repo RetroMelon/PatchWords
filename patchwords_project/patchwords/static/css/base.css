@@ -1,9 +1,38 @@
-.navbar {
-  background-color: aquamarine;
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
 }
 
-.navbar-brand {
+.background-red {
+  background-color: #F27C4F;
+}
+
+.no-border {
+  border: 0px;
+  border-radius: 0px;
+}
+
+.text-white {
   color: white;
+}
+
+.text-black {
+  color: black;
+}
+
+/* search bar stuff */
+.stylish-input-group .input-group-addon{
+  background: white !important;
+}
+.stylish-input-group .form-control{
+  border-right:0;
+  box-shadow:0 0 0;
+  border-color:#ccc;
+}
+.stylish-input-group button{
+  border:0;
+  background:transparent;
 }
 
 .jumbotron {
@@ -22,7 +51,6 @@
 
 #main-content {
   padding: 40px 0px;
-  background-color: aquamarine;
 }
 
 #categories-section {
@@ -34,6 +62,7 @@
 #categories-list li {
   display: inline;
   padding-right: 20px;
+  white-space: nowrap;
 
 }
 
@@ -75,3 +104,33 @@
   font-size: 26px;
   text-align: center;
 }*/
+
+.story-item {
+  text-decoration: none;
+  background-color: white;
+  width: auto;
+  height: 100px;
+  margin: 0px;
+  overflow: hidden;
+}
+
+.story-item .story-item-title {
+  height: 100%;
+  width: 25%;
+  text-align: center;
+  padding: 0px 20px;
+}
+
+.story-item-title h4 {
+  max-height: 41px;
+  text-overflow: ellipsis;
+}
+
+.story-item-favourites {
+  font-size: 30px;
+  color: gold;
+}
+
+.story-item-content {
+  width: 60%;
+}
