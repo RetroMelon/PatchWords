@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<head>
-<title>Register</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
 <h1>Register Here</h1>
         <form id="form" method="post" action="." enctype="multipart/form-data">
                 {% csrf_token %}
@@ -10,6 +10,5 @@
 
                 <input type="submit" value="Submit" />
         </form>
-
-</body>
-</html>
+<br/>
+{% endblock %}
