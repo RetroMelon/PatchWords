@@ -23,7 +23,7 @@
       {% if categories %}
 		<ul>
         {% for category in categories %}
-					<li><a href="/patchwords/category/{{category.slug}}">{{category.title}} ({{category.total_stories}})</a></li>
+					<li><a href="/patchwords/category/{{category.1}}">{{category.0}} ({{category.total_stories}})</a></li>
                 {% endfor %}
                 </ul>
         {% else %}
