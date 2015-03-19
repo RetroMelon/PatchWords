@@ -20,17 +20,19 @@
   </div>
 </div>
 <div class="background-red" id="main-content">
+  {% if category %}
   <div class="container">
     <div class="row">
-      <h2 class="pull-left">Top {{category}}</h2>
+      <h2 class="pull-left text-white">Top {{category}}</h2>
     </div>
 
     <div id="content-section stories-section">
-      {% if stories %}
         {% include 'stories_list.html' %}
-      {% endif %}
     </div>
   </div>
+  {% else %}
+      <h2 class="text-center text-white">Soz, bro... We can't find that category :/</h2>
+  {% endif%}
 </div>
 {% endblock %}
 
