@@ -56,3 +56,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Oh god, let's never push a database again
+*.sqlite3
