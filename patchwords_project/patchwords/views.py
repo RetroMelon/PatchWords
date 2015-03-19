@@ -71,7 +71,6 @@ def edit_profile(request):
             except:
                 pass
             profile_to_edit.save()
-            print username
             return profile(request,username,user_profile=user_profile)
     else:
         user_data = {'username': user_profile.user.username,'email':user_profile.user.email}
