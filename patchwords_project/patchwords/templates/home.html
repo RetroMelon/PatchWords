@@ -9,10 +9,27 @@
   <div class="container" id="jumbotron-container">
       {% if user.is_authenticated %}
       <h1>Post story will go here.</h1>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-          I made it so the gif shows up if the user is logged then realised we were making the learn button more open that
-          and idk how to do that. Thought this could be a quick fix for now since I'd already done it. Can't seem to right
-	 align login/register/login to the right.
+      <script type = "text/javascript">
+      window.onload = function hideMinimise()
+      {
+          document.getElementById("Minimise").style.display='none';
+      }
+        function showGif()
+        {
+            document.getElementById("static/images/explanationgif.gif").src="{% static "images/explanationgif.gif" %}";
+            document.getElementById("static/images/explanationgif.gif").style.display='block';
+            document.getElementById('Learn more').style.display = 'none';
+            document.getElementById('Minimise').style.display = 'block';
+        }
+      function hideGif()
+        {
+            document.getElementById("static/images/explanationgif.gif").style.display = 'none'
+            document.getElementById('Learn more').style.display = 'block';
+            document.getElementById('Minimise').style.display = 'none'
+        }
+      </script>
+      <img src = "" id = "static/images/explanationgif.gif"/> <input id ="Learn more" class = "btn btn-primary btn-lg"type="button" value="Learn more" onclick="showGif()"/>
+      <input id="Minimise" class = "btn btn-primary btn-lg" type="button" value="Minimise" onclick = "hideGif()"/>
       <p>...</p>
       {% else %}
       <img class="center-block" id="explanation-gif" src="{% static "images/explanationgif.gif" %}" alt="" />
