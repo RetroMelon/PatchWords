@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}All Categories{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+  <div class="container" id="jumbotron-container">
+      {% if user.is_authenticated %}
+      <h1>Post story will go here.</h1>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+          I made it so the gif shows up if the user is logged then realised we were making the learn button more open that
+          and idk how to do that. Thought this could be a quick fix for now since I'd already done it. Can't seem to right
+	 align login/register/login to the right.
+      <p>...</p>
+      {% else %}
+      <img class="center-block" id="explanation-gif" src="{% static "images/explanationgif.gif" %}" alt="" />
+      {% endif %}
+  </div>
+</div>
+<div id="main-content">
+      {% if categories %}
+		<ul>
+        {% for category in categories %}
+					<li><a href="/patchwords/category/{{category.1}}">{{category.0}} ({{category.total_stories}})</a></li>
+                {% endfor %}
+                </ul>
+        {% else %}
+                <strong>No Categories exist at the moment, sorry</strong>
+        {% endif %}
+</div>
+{% endblock %}

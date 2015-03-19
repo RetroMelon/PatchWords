@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %}Patchwords Home{% endblock %}
+{% block title %}{{ category }}{% endblock %}
 
 {% block body %}
 <div class="jumbotron">
@@ -20,40 +20,25 @@
   </div>
 </div>
 <div class="background-red" id="main-content">
+  {% if category %}
   <div class="container">
     <div class="row">
-      <h2 class="pull-left text-white">Categories</h2>
-      <h3 class="pull-right text-white"><a href="{% url 'all_categories' %}" class="text-white">view all</a><span class="glyphicon glyphicon-chevron-right"></span></h3>
-    </div>
-
-    <div class="content-section" id="categories-section">
-      {% if categories %}
-        <ul id="categories-list">
-        {% for c in categories %}
-                <li><a href="{% url 'category' c.slug %}">{{c.title}} <span class="badge">{{c.total_stories}}</span></a></li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    </div>
-
-    <br></br>
-
-    <div class="row">
-      <h2 class="pull-left text-white">Top Stories</h2>
+      <h2 class="pull-left text-white">Top {{category}}</h2>
     </div>
 
     <div id="content-section stories-section">
-      {% if stories %}
         {% include 'stories_list.html' %}
-      {% endif %}
     </div>
   </div>
+  {% else %}
+      <h2 class="text-center text-white">Soz, bro... We can't find that category :/</h2>
+  {% endif%}
 </div>
 {% endblock %}
 
 {% block js_imports %}
   <script src="{% static 'js/getMoreStories.js' %}"></script>
   <script charset="utf-8">
-    categoryTitle = ""; //In the category pages, this will be used to filter by category using {{category.title}}
+    categoryTitle = "{{category.title}}"; //In the category pages, this will be used to filter by category using {{category.title}}
   </script>
 {% endblock %}

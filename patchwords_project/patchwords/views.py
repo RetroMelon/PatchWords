@@ -13,7 +13,7 @@ def home(request):
     context_dict['categories'] = categories
 
     #getting the most popular stories
-    stories = queries.getTopStories(start=0, end=2)
+    stories = queries.getTopStories(start=0)
     context_dict['stories'] = stories
 
     return render(request, 'home.html', context_dict)
@@ -40,18 +40,20 @@ def get_top_stories(request):
 
 def category(request, category_name_slug):
     context_dict= {}
-    category = Category.objects.get(slug=category_name_slug)
-    context_dict['category'] = category
-    context_dict['category_name_slug'] = category_name_slug
 
-    #stories = Story.objects.filter(category=category)
-    stories = queries.getTopStories(start=0, end=2)
-    context_dict['stories'] = stories_map[:20]
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+        context_dict['category'] = category
+        context_dict['category_name_slug'] = category_name_slug
+        stories = queries.getTopStories()
+        context_dict['stories'] = stories
+    except:
+        pass
 
     return render(request, 'category.html', context_dict)
 
 def all_categories(request):
-    categories = Category.objects.all().sortBy("title")
+    categories = Category.objects.all().order_by("title")
     categories_map = (lambda x: (x.title, x.slug), categories)
     return render(request, 'all_categories.html',{'categories': categories_map})
 

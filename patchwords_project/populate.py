@@ -35,6 +35,11 @@ def populate_category():
     add_category("Poems")
     add_category("Song Lyrics")
 
+def trim_newline(s):
+    if s[-1] == "\n":
+        s = s[:-1]
+    return s
+
 def populate_story():
     #getting all of the users in the database
     users = User.objects.all()
@@ -42,21 +47,21 @@ def populate_story():
     #getting all of the categories in the database
     categories = Category.objects.all()
 
-    titles = ["Story 1", "Dude, what have you done with my cat.", "Stack overflow - you da real MVP", "A wintery day", "A non-wintery day", "death by javascript", "git merge -f... NO WAIT",]
-    add_story("teststory","johnnyboy95","Horror")
+    titles_file = open("titles.txt", "r")
+    titles = [trim_newline(l) for l in titles_file]
+    titles_file.close()
+
     for t in titles:
         add_story(t, random.choice(users), random.choice(categories))
 
 
 def populate_paragraph():
-    def trim_newline(s):
-        if s[-1] == "\n":
-            s = s[:-1]
-        return s
+
 
     #a bunch of random sentences
     sentences_file = open("sentences.txt", "r")
     sentences = [trim_newline(l) for l in sentences_file]
+    sentences_file.close()
 
     #getting all of the users in the database
     users = User.objects.all()
@@ -73,7 +78,7 @@ def populate_paragraph():
         para = add_paragraph(random.choice(sentences), s, None, s.author)
         paragraphs.append(para)
 
-        for i in range(10):
+        for i in range(20):
             #creating a paragraph with random sentence, parent, user
             para = add_paragraph(random.choice(sentences), s, random.choice(paragraphs), random.choice(users))
 
