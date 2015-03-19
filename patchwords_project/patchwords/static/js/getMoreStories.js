@@ -1,5 +1,5 @@
 var storiesList;
-var chunksize = 10;
+var chunksize = 2;
 var lastfetched = 0;
 var categoryTitle = "";
 
