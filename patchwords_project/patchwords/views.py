@@ -40,13 +40,14 @@ def get_top_stories(request):
 
 def category(request, category_name_slug):
     context_dict= {}
-    category = Category.objects.get(slug=category_name_slug)
-    context_dict['category'] = category
-    context_dict['category_name_slug'] = category_name_slug
-
-    #stories = Story.objects.filter(category=category)
-    stories = queries.getTopStories(start=0, end=2)
-    context_dict['stories'] = stories_map[:20]
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+        context_dict['category'] = category
+        context_dict['category_name_slug'] = category_name_slug
+        stories = queries.getTopStories(start=0, end=2)
+        context_dict['stories'] = stories_map[:20]
+    except:
+        #nothing in here
 
     return render(request, 'category.html', context_dict)
 
