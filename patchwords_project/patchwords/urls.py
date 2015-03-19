@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^search/q', search, name='search'),
     #allows the homepage/categories page to request more of the most popular stories.
     url(r'^gettopstories', get_top_stories, name='get_top_stories'),
+    url(r'^all_categories, all_categories, name = 'all_categories'),
 )
