@@ -54,8 +54,7 @@ def category(request, category_name_slug):
 
 def all_categories(request):
     categories = Category.objects.all().order_by("title")
-    categories_map = (lambda x: (x.title, x.slug), categories)
-    return render(request, 'all_categories.html',{'categories': categories_map})
+    return render(request, 'all_categories.html',{'categories': categories})
 
 def edit_profile(request):
     user_profile = UserProfile.objects.get(user=request.user)
