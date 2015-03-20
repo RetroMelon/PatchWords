@@ -21,26 +21,23 @@
     <form class="navbar-form" role="search">
       <div class="col-sm-6 col-sm-offset-3">
         <div id="imaginary_container">
-          <div class="input-group stylish-input-group">
-            <input type="text" class="form-control"  id="SearchInput"  placeholder="Search" >
-            <span class="input-group-addon">
-              <button type="button" onclick="window.location='/patchwords/search/'+document.getElementById('SearchInput').value">
-                <span class="glyphicon glyphicon-search"></span>
-              </button>
-            </span>
-  </div>
-      <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-  </ul>
-</div>
+          <select class="btn btn-default" id="dropdownMenu">
+            <option value="All">All</option>
+            <option value="Stories">Stories</option>
+            <option value="Categories">Categories</option>
+            <option value="Users">Users</option>
+          </select>
+            <div class="input-group stylish-input-group">
+              <input type="text" class="form-control"  id="SearchInput"  placeholder="Search" >
+              <span class="input-group-addon">
+                <button type="button" onclick="window.location='/patchwords/search/'+document.getElementById('SearchInput').value+'/?filter='+document.getElementById('dropdownMenu').value">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+      </div>
+
+    </div>
     </form>
 
     <div class="nav navbar-nav navbar-right">

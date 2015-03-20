@@ -123,12 +123,15 @@ def story(request, story_name_slug):
     return render(request, 'story.html', context_dict)
 
 def search(request,q):
-    print q
+    cat = request.GET.get("filter")
     if q:
        story_results = Story.objects.filter(title__icontains=q)
        user_results = User.objects.filter(username__icontains=q)
+       category_results= Category.objects.filter(title__icontains=q)
     else:
        story_results = Story.objects.none()
        user_results=User.objects.none()
-    context = dict(story_results=story_results, user_results=user_results, q=q)
+
+    category_results=Category.objects.none()
+    context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
     return render(request, "search.html", context)
