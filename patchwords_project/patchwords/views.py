@@ -119,19 +119,14 @@ def story(request, story_name_slug):
     return render(request, 'user.html', context_dict)
 
 def search(request,q):
-    filter = request.GET.get(filter)
+    cat = request.GET.get("filter")
     if q:
-       if filter == "All":
-
-       elif filter == "Categories":
-        return render(request,"search.html",{"category_results":Category.object.filter(title__icontains=q),"filter":filter})
-       elif filter == "Stories":
-        return render(request,"search.html",{"category_results":Story.object.filter(title__icontains=q),"filter":filter})
-       else:
-           user_results=User.objects.filter(username__icontains=q)
+       story_results = Story.objects.filter(title__icontains=q)
+       user_results = User.objects.filter(username__icontains=q)
+       category_results= Category.objects.filter(title__icontains=q)
     else:
        story_results = Story.objects.none()
        user_results=User.objects.none()
        category_results=Category.objects.none()
-    context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q)
+    context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
     return render(request, "search.html", context)
