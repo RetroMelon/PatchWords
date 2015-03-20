@@ -112,11 +112,15 @@ def profile(request, username, user_profile=None):
 
 #will add story_name_slug but for the moment just request
 def story(request, story_name_slug):
-    story = Story.objects.get(slug=story_name_slug)
-    return render(request, 'story.html', {})
-    #need to add the most contributed paragraphs and highest liked paragraphs
+    context_dict = {}
+    story = Story.objects.all()[4]#Story.objects.get(slug=story_name_slug)
+    print story
 
-    return render(request, 'user.html', context_dict)
+    paragraphs = Paragraph.objects.filter(story=story)
+    context_dict['paragraphs'] = paragraphs
+    print paragraphs
+
+    return render(request, 'story.html', context_dict)
 
 def search(request,q):
     print q

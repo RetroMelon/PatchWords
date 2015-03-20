@@ -1,0 +1,32 @@
+<div class='row'>
+  <div class='col-md-offset-2 col-md-8'>
+    <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+
+      <!-- Carousel Slides / Quotes -->
+      <div class="carousel-inner">
+
+        {% for paragraph in paragraphs %}
+
+        <!-- Quote 1 -->
+        <div class="item {% if forloop.first %} active {% endif %}">
+          <blockquote>
+            <div class="row">
+              <div class="col-sm-3 text-center">
+                <img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" style="width: 100px;height:100px;">
+              </div>
+              <div class="col-sm-9">
+                <p>{{paragraph.content}}</p>
+                <small>{{paragraph.author}}</small>
+              </div>
+            </div>
+          </blockquote>
+        </div>
+
+        {% endfor %}
+
+      <!-- Carousel Buttons Next/Prev -->
+      <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
+      <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,18 @@
 
 {% block title %} {{story.slug}} {% endblock %}
 
-{% block body_block %}
+{% block css_imports %}
+  <link href="{% static 'css/stories.css' %}" rel="stylesheet"></link>
+{% endblock %}
 
+
+{% block body %}
+
+  {% include 'story_row.html' %}
+
+{% endblock %}
+
+
+{% block js_imports %}
+  <script src="{% static 'js/storyCarousel.js' %}"></script>
 {% endblock %}
