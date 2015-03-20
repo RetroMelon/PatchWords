@@ -54,7 +54,7 @@ class Story(models.Model):
     created_datetime = models.DateTimeField(auto_now_add = True)
 
     title = models.CharField(max_length = 128, unique=True)
-    author = models.ForeignKey(UserProfile)
+    author = models.ForeignKey(User)
     category = models.ForeignKey(Category)
     slug = models.SlugField()
 
