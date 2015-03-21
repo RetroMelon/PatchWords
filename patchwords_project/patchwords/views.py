@@ -116,12 +116,17 @@ def profile(request, username, user_profile=None):
 #will add story_name_slug but for the moment just request
 def story(request, story_name_slug):
     context_dict = {}
-    story = Story.objects.all()[4]#Story.objects.get(slug=story_name_slug)
-    context_dict['story'] = story
 
-    root_paragraph = Paragraph.objects.get(parent=None, story=story)
-    paragraphs = queries.getMostPopularSubtree(root_paragraph)
-    context_dict['subtree'] = paragraphs #a list of lists of paragraphs
+    try:
+        story = Story.objects.get(slug=story_name_slug)#Story.objects.get(slug=story_name_slug)
+        context_dict['story'] = story
+
+        root_paragraph = Paragraph.objects.get(parent=None, story=story)
+        paragraphs = queries.getMostPopularSubtree(root_paragraph)
+        context_dict['subtree'] = paragraphs #a list of lists of paragraphs
+    except:
+        pass #if we reach here we couldn't find the story, or root paragraph.
+
 
     return render(request, 'story.html', context_dict)
 

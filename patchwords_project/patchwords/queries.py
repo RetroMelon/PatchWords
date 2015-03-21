@@ -66,6 +66,8 @@ def _getMostPopularSubtree(paragraphs):
 
     #if the children list is not empty, then we extend te list with the most popular subtree
     if child_paragraphs:
-        return_list.extend(_getMostPopularSubtree(child_paragraphs))
+        most_pop = _getMostPopularSubtree(child_paragraphs)
+        if most_pop and most_pop[0]:
+            return_list.extend(most_pop)
 
     return return_list

@@ -10,10 +10,16 @@
 
 {% block body %}
 
+  {% if story%}
+
   <h1>{{story.title}}</h1>
-  <a class="text-muted" href="#">by {{story.author}}</a>
+  <a class="text-muted" href="#"><em>by {{story.author}}</em></a>
 
   {% include 'story_block.html' %}
+
+  {% else %}
+    <h2 class="text-center text-white">Sorry - we couldn't find the story you're looking for.</h2>
+  {% endif %}
 
 {% endblock %}
 

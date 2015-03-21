@@ -1,7 +1,6 @@
 #quote-carousel
 {
   padding: 0 10px 30px 10px;
-  margin-top: 30px;
 }
 
 /* Control buttons  */
@@ -16,7 +15,7 @@
 /* Previous button  */
 #quote-carousel .carousel-control.left
 {
-  left: -12px;
+  left: -31px; /* -12px */
 }
 /* Next button  */
 #quote-carousel .carousel-control.right
@@ -42,6 +41,16 @@
 
 .item {
   background-color: white;
+  opacity: 0.6;
+  margin: 0px 60px;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.active {
+  opacity: 1;
 }
 
 .item blockquote {
