@@ -59,10 +59,17 @@
       <h2 class="pull-left text-white">Top Stories</h2>
     </div>
 
-    <div id="content-section stories-section">
-      {% if stories %}
-        {% include 'stories_list.html' %}
-      {% endif %}
+    <div class="row">
+      <div id="content-section stories-section">
+        {% if stories %}
+          {% include 'stories_list.html' %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2 col-xs-offset-5">
+        <button class="btn btn-warning text-center load-more-button" name="Load More..." onclick="getMoreStories();">Load More...</button>
+      </div>
     </div>
   </div>
 </div>
