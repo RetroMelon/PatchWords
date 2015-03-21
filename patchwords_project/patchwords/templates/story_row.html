@@ -23,8 +23,10 @@
           {% endfor %}
 
         <!-- Carousel Buttons Next/Prev -->
-        <a data-slide="prev" href="#quote-carousel{{paragraphs.0.id}}" class="left carousel-control"><i class="fa fa-chevron-left vcenter-transform"></i></a>
-        <a data-slide="next" href="#quote-carousel{{paragraphs.0.id}}" class="right carousel-control"><i class="fa fa-chevron-right vcenter-transform"></i></a>
+        {% if paragraphs|length > 1 %}
+          <a data-slide="prev" href="#quote-carousel{{paragraphs.0.id}}" class="left carousel-control"><i class="fa fa-chevron-left vcenter-transform"></i></a>
+          <a data-slide="next" href="#quote-carousel{{paragraphs.0.id}}" class="right carousel-control"><i class="fa fa-chevron-right vcenter-transform"></i></a>
+        {% endif %}
       </div>
     </div>
   </div>

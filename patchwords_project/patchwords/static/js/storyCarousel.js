@@ -1,12 +1,12 @@
 //a
 function onSlide (e) {
-  console.log(e.relatedTarget);
+  //console.log(e.relatedTarget);
 
   //getting the item and the parent story row.
   var item = $(e.relatedTarget);
-  console.log(item.attr('paragraph-id'));
+  //console.log(item.attr('paragraph-id'));
   var parentCarousel = $(item.parents('.story-row')[0]);
-  console.log(parentCarousel);
+  //console.log(parentCarousel);
 
   //getting rid of the old subtree
   parentCarousel.nextAll().remove();
@@ -25,7 +25,7 @@ function onSlide (e) {
     parentCarousel.nextAll().on('slid.bs.carousel', onSlide);
   });
 
-  console.log("loaded new data for paragraph "+item.attr('paragraph-id')+"'s subtree");
+  //console.log("loaded new data for paragraph "+item.attr('paragraph-id')+"'s subtree");
 }
 
 

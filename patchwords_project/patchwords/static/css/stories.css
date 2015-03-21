@@ -1,6 +1,6 @@
 .carousel
 {
-  padding: 0 0px 20px 0px;
+  padding: 0px 0px 0px 0px;
 }
 
 /* Control buttons  */
@@ -36,43 +36,7 @@
 
 .item {
   background-color: white;
-  margin: 0px 60px;
-}
-
-.active {
-  opacity: 1;
-}
-
-.item blockquote {
-  border-left: none;
-  margin: 0;
-}
-
-.item blockquote img {
-  margin-bottom: 10px;
-}
-
-.item blockquote p:before {
-  content: "\f10d";
-  font-family: 'Fontawesome';
-  float: left;
-  margin-right: 10px;
-}
-
-
-
-/**
-MEDIA QUERIES
-*/
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .carousel
-  {
-    margin-bottom: 0;
-    padding: 0 40px 30px 40px;
-  }
-
+  margin: 0px 10%;
 }
 
 /* Small devices (tablets, up to 768px) */
