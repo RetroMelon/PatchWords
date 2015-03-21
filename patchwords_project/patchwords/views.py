@@ -6,6 +6,9 @@ from forms import *
 
 # Create your views here.
 def home(request):
+    if request.method == 'POST':
+        print "5"
+
     context_dict = {}
 
     #getting the most popular categories
@@ -125,13 +128,15 @@ def story(request, story_name_slug):
 def search(request,q):
     cat = request.GET.get("filter")
     if q:
-       story_results = Story.objects.filter(title__icontains=q)
+       story_results = Story.objects.filter(title__icontains=q).order_by('-favourite')[:5]
        user_results = User.objects.filter(username__icontains=q)
        category_results= Category.objects.filter(title__icontains=q)
     else:
        story_results = Story.objects.none()
        user_results=User.objects.none()
-
-    category_results=Category.objects.none()
+       category_results=Category.objects.none()
     context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
     return render(request, "search.html", context)
+
+def get_next_5(request):
+    cat = request.GET.get("filter")

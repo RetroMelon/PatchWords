@@ -32,9 +32,6 @@ class UserProfileForm(forms.ModelForm):
         fields = ('picture','bio','gender')
 
 
-
-
-
 class NewParagraph(forms.ModelForm):
     content = forms.CharField(max_length=200, help_text="Write your paragraph!")
     choices = (

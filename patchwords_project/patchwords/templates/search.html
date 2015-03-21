@@ -11,13 +11,16 @@
         </div>
           </br>
           <div class="panel-body">
+          Top Stories
           <div class="list-group">
           {% for result in story_results %}
               <div class="list-group-item">
               <h4 class="list-group-item-heading"><a href="{% url 'story'  result.slug %}">{{ result.title }}</a></h4>
               </div>
           {% endfor %}
+
           </div>
+
           </div>
       {% endif %}
     {% endif %}
