@@ -114,13 +114,27 @@ def profile(request, username, user_profile=None):
 def story(request, story_name_slug):
     context_dict = {}
     story = Story.objects.all()[4]#Story.objects.get(slug=story_name_slug)
-    print story
+    context_dict['story'] = story
 
-    paragraphs = Paragraph.objects.filter(story=story)
-    context_dict['paragraphs'] = paragraphs
-    print paragraphs
+    root_paragraph = Paragraph.objects.get(parent=None, story=story)
+    paragraphs = queries.getMostPopularSubtree(root_paragraph)
+    context_dict['subtree'] = paragraphs #a list of lists of paragraphs
 
     return render(request, 'story.html', context_dict)
+
+def render_most_popular_subtree(request, paragraph_id):
+    context_dict = {}
+
+    try:
+        paragraph = Paragraph.objects.get(id=paragraph_id)
+        print paragraph
+        subtree = queries.getMostPopularSubtree(paragraph)
+        print subtree
+        context_dict['subtree'] = subtree
+    except:
+        pass
+
+    return render(request, 'story_block.html', context_dict)
 
 def search(request,q):
     cat = request.GET.get("filter")

@@ -10,7 +10,10 @@
 
 {% block body %}
 
-  {% include 'story_row.html' %}
+  <h1>{{story.title}}</h1>
+  <a class="text-muted" href="#">by {{story.author}}</a>
+
+  {% include 'story_block.html' %}
 
 {% endblock %}
 

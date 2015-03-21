@@ -4,6 +4,12 @@
   float: none;
 }
 
+.vcenter-transform {
+  top: 50%;
+  position: absolute;
+  transform: translate(0, -50%);
+}
+
 .background-red {
   background-color: #F27C4F;
 }
@@ -11,6 +17,10 @@
 .no-border {
   border: 0px;
   border-radius: 0px;
+}
+
+.no-margin {
+  margin: 0px 0px;
 }
 
 .text-white {
@@ -31,7 +41,7 @@ a:visited {
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* search bar stuff */
@@ -49,7 +59,6 @@ a:hover {
 }
 
 .jumbotron {
-  padding: 0px 0px;
   height: 350px;
   background-color: white;
 }

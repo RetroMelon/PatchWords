@@ -1,6 +1,6 @@
 # The queries.py file contains a bunch of relatively complex database
 # queries that probably shouldn't take place inside the views.
-from patchwords.models import Category, Story
+from patchwords.models import Category, Story, Paragraph
 
 #gets a list of
 def getTopStories(start=0, end=20, category=None):
@@ -34,3 +34,38 @@ def getTopCategories(quantity=20):
 
     #returning the top 20
     return cats_with_story_count[:quantity]
+
+def _sortParagraphs(paragraphs):
+    if not paragraphs:
+        return []
+    #zipping paragraphs with likes
+    zipped = map(lambda x: (x.likes, x), paragraphs)
+    zipped.sort()
+    zipped.reverse()
+
+    unzipped = zip(*zipped)[1]
+    return unzipped
+
+#a wrapper around getMostPopularSubtree
+def getMostPopularSubtree(paragraph):
+    return _getMostPopularSubtree([paragraph,])
+
+#given a paragraph lis, this returns a list of lists of paragraphs.
+#it assumes that the first paragraph in the list is the most popular
+def _getMostPopularSubtree(paragraphs):
+    #getting the most popular paragraph's children
+    child_paragraphs = Paragraph.objects.filter(parent=paragraphs[0])
+
+
+    #sorting all of the children
+    child_paragraphs = _sortParagraphs(child_paragraphs)
+    #print "child paragraphs: \n\n", child_paragraphs
+
+    #adding the children to the list of things to return
+    return_list = [child_paragraphs,]
+
+    #if the children list is not empty, then we extend te list with the most popular subtree
+    if child_paragraphs:
+        return_list.extend(_getMostPopularSubtree(child_paragraphs))
+
+    return return_list

@@ -90,6 +90,10 @@ class Paragraph(models.Model):
     def __unicode__(self):
         return self.author.username + ": " + self.content[:20] + "..."
 
+    @property
+    def likes(self):
+        return len(Like.objects.filter(paragraph=self))
+
     #prints this tree with a subtree
     def _print_subtree(self, depth=0):
         #printing itself
