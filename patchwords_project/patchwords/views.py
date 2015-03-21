@@ -122,6 +122,8 @@ def story(request, story_name_slug):
         context_dict['story'] = story
 
         root_paragraph = Paragraph.objects.get(parent=None, story=story)
+        context_dict['root_paragraph'] = root_paragraph
+
         paragraphs = queries.getMostPopularSubtree(root_paragraph)
         context_dict['subtree'] = paragraphs #a list of lists of paragraphs
     except:

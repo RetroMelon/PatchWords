@@ -1,10 +1,10 @@
-#quote-carousel
+.carousel
 {
-  padding: 0 10px 30px 10px;
+  padding: 0 0px 20px 0px;
 }
 
 /* Control buttons  */
-#quote-carousel .carousel-control
+.carousel .carousel-control
 {
   background: none;
   color: #222;
@@ -13,40 +13,30 @@
   margin: 0px 0px;
 }
 /* Previous button  */
-#quote-carousel .carousel-control.left
+.carousel .carousel-control.left
 {
   left: -31px; /* -12px */
 }
 /* Next button  */
-#quote-carousel .carousel-control.right
+.carousel .carousel-control.right
 {
   right: -12px !important;
 }
 
 /* Changes the color of the indicators */
-#quote-carousel .carousel-indicators li
+.carousel .carousel-indicators li
 {
   background: #c0c0c0;
 }
-#quote-carousel .carousel-indicators .active
+.carousel .carousel-indicators .active
 {
   background: #333333;
-}
-#quote-carousel img
-{
-  width: 250px;
-  height: 100px
 }
 /* End carousel */
 
 .item {
   background-color: white;
-  opacity: 0.6;
   margin: 0px 60px;
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
 }
 
 .active {
@@ -77,7 +67,7 @@ MEDIA QUERIES
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  #quote-carousel
+  .carousel
   {
     margin-bottom: 0;
     padding: 0 40px 30px 40px;
@@ -90,16 +80,16 @@ MEDIA QUERIES
 
   /* Make the indicators larger for easier clicking with fingers/thumb on mobile */
 
-  #quote-carousel .carousel-indicators {
+  .carousel .carousel-indicators {
     bottom: -20px !important;
   }
-  #quote-carousel .carousel-indicators li {
+  .carousel .carousel-indicators li {
     display: inline-block;
     margin: 0px 5px;
     width: 15px;
     height: 15px;
   }
-  #quote-carousel .carousel-indicators li.active {
+  .carousel .carousel-indicators li.active {
     margin: 0px 5px;
     width: 20px;
     height: 20px;

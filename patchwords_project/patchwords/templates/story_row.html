@@ -1,6 +1,6 @@
-<div class='row'>
+<div class='row story-row'>
     <div class='col-md-offset-2 col-md-8'>
-      <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+      <div class="carousel slide" data-ride="carousel" id="quote-carousel{{paragraphs.0.id}}">
 
         <!-- Carousel Slides / Quotes -->
         <div class="carousel-inner">
@@ -8,12 +8,12 @@
           {% for paragraph in paragraphs %}
 
           <!-- Quote 1 -->
-          <div class="item {% if forloop.first %} active {% endif %}">
+          <div class="item {% if forloop.first %} active {% endif %}" paragraph-id="{{paragraph.id}}">
             <blockquote>
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
                   <p>{{paragraph.content}}</p>
-                  <small>{{paragraph.author}}</small>
+                  <small>{{paragraph.author}}, {{paragraph.likes}} likes.</small>
                   <small>id {{paragraph.id}}</small>
                 </div>
               </div>
@@ -23,8 +23,8 @@
           {% endfor %}
 
         <!-- Carousel Buttons Next/Prev -->
-        <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left vcenter-transform"></i></a>
-        <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right vcenter-transform"></i></a>
+        <a data-slide="prev" href="#quote-carousel{{paragraphs.0.id}}" class="left carousel-control"><i class="fa fa-chevron-left vcenter-transform"></i></a>
+        <a data-slide="next" href="#quote-carousel{{paragraphs.0.id}}" class="right carousel-control"><i class="fa fa-chevron-right vcenter-transform"></i></a>
       </div>
     </div>
   </div>
