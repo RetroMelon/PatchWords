@@ -19,15 +19,16 @@
           {% else %}
             <span class="text-muted">There aint no description for this story...</span>
           {% endif %}
+</a>
         </div>
          <div class="story-item-favourites vcenter">
            <form action="{% url 'home' %}" method="post">
              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>{{story.favourites}}
              <input type='hidden' value='5' name="story_name" />
            </form>
+
          </div>
-        </a>
-    </div>
+      </div>
   {% endfor %}
   {% else %}
   <h2 class="text-white">
