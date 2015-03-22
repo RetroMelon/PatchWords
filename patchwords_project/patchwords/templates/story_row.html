@@ -10,12 +10,12 @@
           {% for paragraph in paragraphs %}
 
           <!-- Quote 1 -->
-          <div class="item {% if forloop.first %} active {% endif %}" paragraph-id="{{paragraph.id}}">
+          <div class="item {% if forloop.first %} active {% endif %} {% if paragraph.author == user %}background-lavender {% else %} background-white {% endif %}" paragraph-id="{{paragraph.id}}">
             <blockquote>
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
                   <p>{{paragraph.content}}</p>
-                  <small>{{paragraph.author}}</small>
+                  <small>{% if paragraph.author == user %}You {% else %}{{paragraph.author}} {% endif %}</small>
 
                   <div>
                     <span class="badge" id="badge-{{paragraph.id}}">{{paragraph.likes}}</span>

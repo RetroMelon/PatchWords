@@ -23,6 +23,7 @@ def populate_user():
     add_user("johnnyboy95", "jstarrrr@gmail.com", "password123", "I'm a kool dood.", date_of_birth=datetime.date(1995, 9, 24))
     add_user("taylors_cat", "cat@tswizzle.com", "whiskas", "I'm a kool kitty.", date_of_birth=datetime.date(2008, 1, 1))
     add_user("guiseppe", "joe@iwishiwereitalian.com", "pizza9001", "Seriously though, if you are out with your girlfriend's parents for dinner, don't order a hawaiian pizza - she will slag you forever.")
+    add_user("test", "test@gmail.com", "test", "Test account :D.")
 
 def populate_category():
     add_category("Random")
