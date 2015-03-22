@@ -37,22 +37,19 @@
               </span>
             </div>
       </div>
-
     </div>
     </form>
 
-    <div class="nav navbar-nav navbar-right">
       {% if user.is_authenticated %}
+          <h4>
       <a class="navbar-text" href="{% url 'profile' user.username%}">{{ user.username }}</a>
       <a class="navbar-text" href="{% url 'auth_logout' %}?next=/patchwords/">Logout</a>
       {% else %}
       <a class="navbar-text" href="{% url 'auth_login' %}?next=/patchwords/">Login</a>
       <a class="navbar-text" href="{% url 'registration_register' %}">Register Here</a>
+          </h4>
       {% endif %}
-    </div>
-
 </nav>
-
 </head>
 
 <body class="background-red">

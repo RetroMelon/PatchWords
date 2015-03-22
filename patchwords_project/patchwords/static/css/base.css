@@ -105,7 +105,13 @@ a:hover {
   margin: 10px;
 }
 
+.right-align{
+    float: right;
+}
 
+.center-align{
+    margin: 0 auto;
+}
 
 /*
 .story-item {

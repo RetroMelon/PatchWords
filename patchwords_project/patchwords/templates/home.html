@@ -8,7 +8,13 @@
 <div class="jumbotron">
   <div class="container" id="jumbotron-container">
       {% if user.is_authenticated %}
-            <h2 class="text-center text-white">Start your own story here!</h2>
+      <h2 class="text-center text-white">Start your own story here!</h2>
+      <div class="right-align">
+      <button id="help" class="btn btn-default btn-xs" onclick="showGif()"><span class="glyphicon glyphicon-question-sign"></span> Help</button>
+      <button id="less" class="btn btn-default btn-xs" onclick="hideGif()"/><span class="glyphicon glyphicon-question-sign"></span> Less</button>
+      <div><img src = "" id = "static/images/explanationgif.gif"/>
+      </div>
+      </div>
 	  <form role="form"  id="page_form" method="post" action="/patchwords/">
 
                     {% csrf_token %}
@@ -28,24 +34,22 @@
       <script type = "text/javascript">
       window.onload = function hideMinimise()
       {
-          document.getElementById("Minimise").style.display='none';
+          document.getElementById("less").style.display='none';
       }
         function showGif()
         {
             document.getElementById("static/images/explanationgif.gif").src="{% static "images/explanationgif.gif" %}";
             document.getElementById("static/images/explanationgif.gif").style.display='block';
-            document.getElementById('Learn more').style.display = 'none';
-            document.getElementById('Minimise').style.display = 'block';
+            document.getElementById('help').style.display = 'none';
+            document.getElementById('less').style.display = 'block';
         }
       function hideGif()
         {
             document.getElementById("static/images/explanationgif.gif").style.display = 'none'
-            document.getElementById('Learn more').style.display = 'block';
-            document.getElementById('Minimise').style.display = 'none'
+            document.getElementById('help').style.display = 'block';
+            document.getElementById('less').style.display = 'none'
         }
       </script>
-      <img src = "" id = "static/images/explanationgif.gif"/> <input id ="Learn more" class = "btn btn-primary btn-lg"type="button" value="Learn more" onclick="showGif()"/>
-      <input id="Minimise" class = "btn btn-primary btn-lg" type="button" value="Minimise" onclick = "hideGif()"/>
       <p>...</p>
       {% else %}
       <img class="center-block" id="explanation-gif" src="{% static "images/explanationgif.gif" %}" alt="" />
