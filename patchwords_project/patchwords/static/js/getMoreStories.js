@@ -5,6 +5,7 @@ var categoryTitle = "";
 
 function getMoreStories() {
   lastfetched = lastfetched + chunksize;
+
   $.ajax({
     method: "GET",
     url: "/patchwords/gettopstories",
