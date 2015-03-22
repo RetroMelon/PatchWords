@@ -7,6 +7,18 @@ from forms import *
 # Create your views here.
 def home(request):
     context_dict = {}
+    if request.method == 'POST':
+        form = StoryForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            form.save(commit = True)
+            sluggy = Story.objects.get(title = title).slug
+            return HttpResponseRedirect('/patchwords/story/'+sluggy)
+        else:
+            print form.errors
+    else:
+        form = StoryForm()
+    context_dict['form'] = form
 
     #getting the most popular categories
     categories = queries.getTopCategories()

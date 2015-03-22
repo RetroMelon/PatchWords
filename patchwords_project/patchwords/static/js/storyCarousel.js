@@ -16,11 +16,19 @@ function onSlide (e) {
     //putting the new carousels in the DOM
     parentCarousel.after(data);
 
+    var nextstuff = parentCarousel.nextAll();
+    console.log(nextstuff);
+
     //setting up the carousels not to auto-cycle
-    parentCarousel.nextAll().carousel({
-      pause: true,
-      interval: false,
+    //parentCarousel.nextAll()
+    $('.story-row').each(function(i, val){
+      alert(val);
+      $(val).carousel({
+        //pause: true,
+        interval: false,
+      });
     });
+
     //setting up the carousels to recognise clicks
     parentCarousel.nextAll().on('slid.bs.carousel', onSlide);
   });
@@ -38,4 +46,9 @@ $(document).ready(function() {
   });
 
   $('.carousel').on('slid.bs.carousel', onSlide);
+});
+
+
+$(document).on('mouseleave','.carousel', function(){
+  $(this).carousel('pause');
 });
