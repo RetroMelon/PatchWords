@@ -13,4 +13,6 @@ urlpatterns = patterns('',
     url(r'^gettopstories', get_top_stories, name='get_top_stories'),
     url(r'getsubtree/(?P<paragraph_id>\d+)/$', render_most_popular_subtree ,name='getsubtree'),
     url(r'^searchtopstories', search_top_stories, name='search_top_stories'),
+    url(r'^like', like, name='like'),
+
 )

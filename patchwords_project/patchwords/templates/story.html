@@ -12,39 +12,44 @@
 
   {% if story%}
 
-  <h1>{{story.title}}</h1>
+  <div class="row background-white" id="story-title">
+    <h1 class="text-center">{{story.title}}</h1>
+    <p class="text-center">
+      <a href ="{% url 'profile' story.author.username %}" class="text-center text-muted" href="#"><em>by {{story.author}}</em></a>
+    </p>
+  </div>
 
-  by<a href ="{% url 'profile' story.author.username %}" class="text-muted" href="#"><em> {{story.author}}</em></a>
+  <div class="container">
+    <div class='row story-row'>
+      <div class='col-md-offset-2 col-md-8'>
+        <div class="carousel slide" data-ride="carousel">
 
-  <div class='row story-row'>
-    <div class='col-md-offset-2 col-md-8'>
-      <div class="carousel slide" data-ride="carousel">
+          <!-- Carousel Slides / Quotes -->
+          <div class="carousel-inner">
 
-        <!-- Carousel Slides / Quotes -->
-        <div class="carousel-inner">
-
-          <!-- Quote 1 -->
-          <div class="item active">
-            <blockquote>
-              <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                  <p>{{root_paragraph.content}}</p>
-                  <a href="{% url 'profile' root_paragraph.author %}"><small>{{root_paragraph.author}}</small></a>
-                  <small>id {{root_paragraph.id}}</small>
+            <!-- Quote 1 -->
+            <div class="item active">
+              <blockquote>
+                <div class="row">
+                  <div class="col-sm-10 col-sm-offset-1">
+                    <p>{{root_paragraph.content}}</p>
+                    <a href="{% url 'profile' root_paragraph.author %}"><small>{{root_paragraph.author}}</small></a>
+                    <small>id {{root_paragraph.id}}</small>
+                  </div>
                 </div>
-              </div>
-            </blockquote>
+              </blockquote>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    {% include 'story_block.html' %}
+
+    {% else %}
+      <h2 class="text-center text-white">Sorry - we couldn't find the story you're looking for.</h2>
+    {% endif %}
   </div>
-
-  {% include 'story_block.html' %}
-
-  {% else %}
-    <h2 class="text-center text-white">Sorry - we couldn't find the story you're looking for.</h2>
-  {% endif %}
 
 {% endblock %}
 

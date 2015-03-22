@@ -52,6 +52,50 @@ $(document).on('mouseleave','.carousel', function(){
 });
 
 $(document).on('click','.btn-like', function(e){
-  console.log(e);
-  $(this).carousel('pause');
+  console.log(e.target);
+  var btn = $(e.target);
+  var glyph = btn.children('.glyphicon');
+  var parentParagraphId = btn.closest('.item').attr('paragraph-id');
+
+  function updateBadge(data) {
+    $('#badge-'+parentParagraphId).html(data);
+  }
+
+  //button is in liked state so we have to unlike.
+  if(btn.attr('state') == 'liked') {
+      //changing button to unliked state
+      btn.attr('state', 'like');
+
+      glyph.removeClass('glyphicon-heart');
+      glyph.addClass('glyphicon-heart-empty');
+      btn.children('.like-text').text(' Like');
+
+      //requesting an unlike
+      $.ajax({
+        method: "GET",
+        url: "/patchwords/like/",
+        data: {paragraph:parentParagraphId, type:'unlike'}
+      })
+      .done(updateBadge);
+
+
+  }
+  else { //button is in unliked state so we have to like.
+      //changing button to liked state
+      btn.attr('state', 'liked');
+
+      glyph.removeClass('glyphicon-heart-empty');
+      glyph.addClass('glyphicon-heart');
+      btn.children('.like-text').text(' Liked');
+
+      //requesting like
+      $.ajax({
+        method: "GET",
+        url: "/patchwords/like/",
+        data: {paragraph:parentParagraphId, type:'like'}
+      })
+      .done(updateBadge);
+
+  }
+
 });

@@ -15,7 +15,7 @@ def home(request):
             title = form.cleaned_data.get('title')
             usernames = request.user.username
             boop = form.cleaned_data.get('text')
-            
+
             user = User.objects.get(username = usernames)
             story = form.save(commit = False)
             story.author = user
@@ -25,7 +25,7 @@ def home(request):
 
             boops = Paragraph(content=boop, story=stoz, parent = None, author = user)
             boops.save()
-            
+
             sluggy = Story.objects.get(title = title).slug
             return HttpResponseRedirect('/patchwords/story/'+sluggy)
         else:
@@ -179,6 +179,27 @@ def search(request,q):
     return render(request, "search.html", context)
 
        #story_results = Story.objects.filter(title__icontains=q).order_by('-favourite')[:5]
+
+
+#takes a username and paragraph and likes or unlikes the paragraph.
+#returns the new number of likes the paragraph has.
+def like(request):
+    paragraph_id = request.GET.get('paragraph')
+    like_type = request.GET.get('type')
+    user = request.user
+
+    paragraph = Paragraph.objects.get(id=paragraph_id)
+
+    #we want to check the database to see if a like is in existence and if it is remove it.
+    if like_type == 'like':
+        Like.objects.get_or_create(user=user, paragraph=paragraph)
+    else:
+        likes = Like.objects.filter(user=user, paragraph=paragraph)
+        for l in likes:
+            l.delete()
+
+    print "like request", paragraph_id, like_type, user
+    return HttpResponse(paragraph.likes)
 
 def search_top_stories(request):
     if request.method == 'GET':

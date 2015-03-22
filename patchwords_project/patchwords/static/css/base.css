@@ -14,6 +14,10 @@
   background-color: #9FBAB5;
 }
 
+.background-white {
+  background-color: white;
+}
+
 .no-border {
   border: 0px;
   border-radius: 0px;
@@ -33,6 +37,15 @@
 
 .text-black {
   color: black;
+}
+
+.jumbotron {
+  background-size: 100%;
+  background-image: url(/static/images/jumbotron-background.jpg);
+  height: 400px;
+  -webkit-box-shadow: inset 0px 0px 139px 79px rgba(36,36,36,0.62);
+  -moz-box-shadow: inset 0px 0px 139px 79px rgba(36,36,36,0.62);
+  box-shadow: inset 0px 0px 139px 79px rgba(36,36,36,0.62);
 }
 
 /* styling links */
@@ -60,11 +73,6 @@ a:hover {
 .stylish-input-group button{
   border:0;
   background:transparent;
-}
-
-.jumbotron {
-  height: 350px;
-  background-color: white;
 }
 
 #explanation-gif {

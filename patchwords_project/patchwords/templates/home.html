@@ -8,9 +8,9 @@
 <div class="jumbotron">
   <div class="container" id="jumbotron-container">
       {% if user.is_authenticated %}
-            <h2 class = "text-center"  >Start your own story here!</h2>
+            <h2 class="text-center text-white">Start your own story here!</h2>
 	  <form role="form"  id="page_form" method="post" action="/patchwords/">
-           
+
                     {% csrf_token %}
                     {% for hidden in form.hidden_fields %}
                         {{ hidden }}

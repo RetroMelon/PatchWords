@@ -1,3 +1,7 @@
+#story-title {
+  margin: 30px 0px;
+}
+
 .carousel
 {
   padding: 0px 0px 0px 0px;
@@ -37,6 +41,10 @@
 .item {
   background-color: white;
   margin: 0px 10%;
+}
+
+.btn-glyph, .like-text {
+  pointer-events: none;
 }
 
 /* Small devices (tablets, up to 768px) */
