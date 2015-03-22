@@ -46,6 +46,31 @@ class Story(models.Model):
     def __unicode__(self):
         return self.title
 
+class Paragraph(models.Model):
+    created_datetime = models.DateTimeField(auto_now_add = True)
+
+    content = models.CharField(max_length=200)
+    story = models.ForeignKey(Story)
+    parent = models.ForeignKey('self', null=True)
+    author = models.ForeignKey(User)
+    end = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.author.username + ": " + self.content[:20] + "..."
+
+    @property
+    def likes(self):
+        return len(Like.objects.filter(paragraph=self))
+
+    #prints this tree with a subtree
+    def _print_subtree(self, depth=0):
+        #printing itself
+        print "|" + "-"*depth*2 + "|" + str(self)
+
+        #iterating over all of its children and printing them with depth+1
+        for c in Paragraph.objects.filter(parent=self):
+            c._print_subtree(depth=depth+1)
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     picture = models.ImageField(upload_to='profile_images',blank=True)
@@ -74,33 +99,6 @@ class UserProfile(models.Model):
 
 
 import signals
-
-
-class Paragraph(models.Model):
-    created_datetime = models.DateTimeField(auto_now_add = True)
-
-    content = models.CharField(max_length=200)
-    story = models.ForeignKey(Story)
-    parent = models.ForeignKey('self', null=True)
-    author = models.ForeignKey(User)
-    end = models.BooleanField(default=False)
-
-    def __unicode__(self):
-        return self.author.username + ": " + self.content[:20] + "..."
-
-    @property
-    def likes(self):
-        return len(Like.objects.filter(paragraph=self))
-
-    #prints this tree with a subtree
-    def _print_subtree(self, depth=0):
-        #printing itself
-        print "|" + "-"*depth*2 + "|" + str(self)
-
-        #iterating over all of its children and printing them with depth+1
-        for c in Paragraph.objects.filter(parent=self):
-            c._print_subtree(depth=depth+1)
-
 
 
 class Favourite(models.Model):

@@ -2,6 +2,8 @@ from django.shortcuts import render,HttpResponseRedirect,HttpResponse
 from models import *
 import sys, queries
 from forms import *
+from django.contrib.auth.models import User
+
 
 
 # Create your views here.
@@ -11,7 +13,19 @@ def home(request):
         form = StoryForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data.get('title')
-            form.save(commit = True)
+            usernames = request.user.username
+            boop = form.cleaned_data.get('text')
+            
+            user = User.objects.get(username = usernames)
+            story = form.save(commit = False)
+            story.author = user
+            story.save()
+
+            stoz = Story.objects.get(title = title)
+
+            boops = Paragraph(content=boop, story=stoz, parent = None, author = user)
+            boops.save()
+            
             sluggy = Story.objects.get(title = title).slug
             return HttpResponseRedirect('/patchwords/story/'+sluggy)
         else:

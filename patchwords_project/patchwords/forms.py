@@ -33,7 +33,7 @@ class UserProfileForm(forms.ModelForm):
         fields = ('picture','bio','gender')
 
 
-class NewParagraph(forms.ModelForm):
+class ParagraphForm(forms.ModelForm):
     content = forms.CharField(max_length=200, help_text="Write your paragraph!")
     choices = (
     (True, 'yes'),
@@ -41,14 +41,14 @@ class NewParagraph(forms.ModelForm):
     end = forms.ChoiceField(choices=choices, widget=forms.RadioSelect)
 
     class Meta:
-        #model = Paragraph
+        model = Paragraph
         exclude = ('story', 'parent', 'author','created_datetime')
 
 class StoryForm(forms.ModelForm):
     title = forms.CharField(max_length=200, help_text="Title", required = True)
-    author = "test"
     category = 'test'
+    text = forms.CharField(max_length=200, help_text="Title", required = False)
     class Meta:
         model = Story
-        exclude = ('created_datetime', 'slug')
+        exclude = ('created_datetime', 'author', 'slug')
 

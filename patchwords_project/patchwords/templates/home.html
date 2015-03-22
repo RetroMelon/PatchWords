@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load staticfiles %}{% load staticfiles %}
+{% load staticfiles %}
 
 {% block title %}Patchwords Home{% endblock %}
 
@@ -8,7 +8,7 @@
 <div class="jumbotron">
   <div class="container" id="jumbotron-container">
       {% if user.is_authenticated %}
-            <h1>Start your own story here!</h1>
+            <h2 class = "text-center"  >Start your own story here!</h2>
 	  <form role="form"  id="page_form" method="post" action="/patchwords/">
            
                     {% csrf_token %}
