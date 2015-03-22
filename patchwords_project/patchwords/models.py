@@ -69,9 +69,16 @@ class UserProfile(models.Model):
         date_of_birth = self.date_of_birth
         return today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
 
+    @property
+    def total_likes(self):
+        paragraphs = Paragraph.objects.filter(author=self.user)
+        users_likes=0
+        for paragraph in paragraphs:
+            users_likes += paragraph.likes
+        return users_likes
+
     def __unicode__(self):
         return self.user.username
-
 
 import signals
 
