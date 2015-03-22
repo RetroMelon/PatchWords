@@ -93,7 +93,7 @@ def populate_like():
     #getting all of the paragraphs in the database
     paras = Paragraph.objects.all()
 
-    for i in range(30):
+    for i in range(4000):
         add_like(random.choice(users), random.choice(paras))
 
 
@@ -104,7 +104,7 @@ def populate_favourite():
     #getting all of the stories in the database
     stories = Story.objects.all()
 
-    for i in range(30):
+    for i in range(3000):
         add_favourite(random.choice(users), random.choice(stories))
 
 

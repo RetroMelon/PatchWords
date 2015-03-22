@@ -17,12 +17,10 @@ function onSlide (e) {
     parentCarousel.after(data);
 
     var nextstuff = parentCarousel.nextAll();
-    console.log(nextstuff);
 
     //setting up the carousels not to auto-cycle
     //parentCarousel.nextAll()
     $('.story-row').each(function(i, val){
-      alert(val);
       $(val).carousel({
         //pause: true,
         interval: false,
