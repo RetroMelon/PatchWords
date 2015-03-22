@@ -50,3 +50,8 @@ $(document).ready(function() {
 $(document).on('mouseleave','.carousel', function(){
   $(this).carousel('pause');
 });
+
+$(document).on('click','.btn-like', function(e){
+  console.log(e);
+  $(this).carousel('pause');
+});
