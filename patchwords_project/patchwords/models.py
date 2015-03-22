@@ -3,6 +3,49 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+class Category(models.Model):
+    title = models.CharField(max_length=30)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Category, self).save(*args, **kwargs)
+
+    #gets the total number of stories in this category
+    @property
+    def total_stories(self):
+        return len(Story.objects.filter(category=self))
+
+    def __unicode__(self):
+        return self.title
+
+class Story(models.Model):
+    created_datetime = models.DateTimeField(auto_now_add = True)
+
+    title = models.CharField(max_length = 128, unique=True)
+    author = models.ForeignKey(User)
+    category = models.ForeignKey(Category)
+    slug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Story, self).save(*args, **kwargs)
+
+    @property
+    def favourites(self):
+        #getting all of the favourites for this story from the database
+        favourites_list = Favourite.objects.filter(story=self)
+        #returning the count
+        return len(favourites_list)
+
+    @property
+    def outline(self):
+        root_paragraph = Paragraph.objects.get(story=self, parent=None)
+        return root_paragraph.content
+
+    def __unicode__(self):
+        return self.title
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     picture = models.ImageField(upload_to='profile_images',blank=True)
@@ -31,51 +74,6 @@ class UserProfile(models.Model):
 
 
 import signals
-
-class Category(models.Model):
-    title = models.CharField(max_length=30)
-    slug = models.SlugField(unique=True)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Category, self).save(*args, **kwargs)
-
-    #gets the total number of stories in this category
-    @property
-    def total_stories(self):
-        return len(Story.objects.filter(category=self))
-
-    def __unicode__(self):
-        return self.title
-
-
-
-class Story(models.Model):
-    created_datetime = models.DateTimeField(auto_now_add = True)
-
-    title = models.CharField(max_length = 128, unique=True)
-    author = models.ForeignKey(User)
-    category = models.ForeignKey(Category)
-    slug = models.SlugField()
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Story, self).save(*args, **kwargs)
-
-    @property
-    def favourites(self):
-        #getting all of the favourites for this story from the database
-        favourites_list = Favourite.objects.filter(story=self)
-        #returning the count
-        return len(favourites_list)
-
-    @property
-    def outline(self):
-        root_paragraph = Paragraph.objects.get(story=self, parent=None)
-        return root_paragraph.content
-
-    def __unicode__(self):
-        return self.title
 
 
 class Paragraph(models.Model):

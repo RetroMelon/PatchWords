@@ -1,65 +1,74 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
 {% block title %}Search{% endblock %}
 
 {% block body %}
-<div class="panel panel-primary">
     {% if cat == 'All' or cat == 'Stories' %}
       {% if story_results %}
-        <div class="panel-heading">
-          <h1 class="panel-title">Stories</h1>
-        </div>
-          </br>
-          <div class="panel-body">
-          Top Stories
-          <div class="list-group">
-          {% for result in story_results %}
-              <div class="list-group-item">
-              <h4 class="list-group-item-heading"><a href="{% url 'story'  result.slug %}">{{ result.title }}</a></h4>
-              </div>
-          {% endfor %}
-
-          </div>
-
-          </div>
+    <div class="panel panel-primary">
+        {% include 'stories_list.html' with stories=story_results %}
+    </div>
+        <div class="row">
+      <div class="col-xs-2 col-xs-offset-5">
+        <button class="btn btn-warning text-center load-more-button" name="Load More..." onclick="searchMoreStories();">Load More...</button>
+      </div>
+    </div>
+      {% else %}
+          <h2 class="text-white">There are no stories containing your search parameters</h2>
       {% endif %}
     {% endif %}
+
 
     {% if cat == 'All' or cat == 'Users' %}
-    {% if user_results %}
-      <div class="panel-heading">
-        <h3 class="panel-title">Users</h3>
-      </div>
-        </br>
-        <div class="panel-body">
-        <div class="list-group">
-        {% for result in user_results %}
-            <div class="list-group-item">
-            <h4 class="list-group-item-heading"><a href="{% url 'profile'  result.username %}">{{ result.username }}</a></h4>
-            </div>
-        {% endfor %}
-        </div>
-        </div>
-    {% endif %}
-    {% endif %}
-
-    {% if cat == 'All' or cat == "Categories" %}
-      {% if category_results %}
-        <div class="panel-heading">
-          <h3 class="panel-title">Categories</h3>
-        </div>
+      {% if user_results %}
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Users</h3>
+          </div>
           </br>
-          <div class="panel-body">
-          <div class="list-group">
-          {% for result in category_results %}
-            <div class="list-group-item">
-            <h4 class="list-group-item-heading"><a href="{% url 'category'  result.slug %}">{{ result.title }}</a></h4>
+          {% for result in user_results %}
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading"><a href="{% url 'profile'  result.username %}">{{ result.username }}</a></h4>
           </div>
         {% endfor %}
+      {% else %}
+        <h2 class="text-white">There are no users containing your search parameters</h2>
+    {% endif %}
+    {% endif %}
+    </div>
+
+      {% if cat == 'All' or cat == "Categories" %}
+        {% if category_results %}
+
+          <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Categories</h3>
+          </div>
+            </br>
+            <div class="panel-body">
+            <div class="list-group">
+            {% for result in category_results %}
+              <div class="list-group-item">
+              <h4 class="list-group-item-heading"><a href="{% url 'category'  result.slug %}">{{ result.title }}</a></h4>
+            </div>
+          {% endfor %}
+          </div>
         </div>
-        </div>
+            </div>
+        {% else %}
+            <h2 class="text-white">There are no categories containing your search parameters</h2>
       {% endif %}
     {% endif %}
-</div>
+
 
 {% endblock %}
+{% block js_imports %}
+  <script src="{% static 'js/searchMoreStories.js' %}"></script>
+  <script charset="utf-8">
+    categoryTitle = ""; //In the category pages, this will be used to filter by category using {{category.title}}
+  </script>
+
+{% endblock %}
+

@@ -6,10 +6,19 @@ from forms import *
 
 # Create your views here.
 def home(request):
-    if request.method == 'POST':
-        print "5"
-
     context_dict = {}
+    if request.method == 'POST':
+        form = StoryForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            form.save(commit = True)
+            sluggy = Story.objects.get(title = title).slug
+            return HttpResponseRedirect('/patchwords/story/'+sluggy)
+        else:
+            print form.errors
+    else:
+        form = StoryForm()
+    context_dict['form'] = form
 
     #getting the most popular categories
     categories = queries.getTopCategories()
@@ -134,30 +143,42 @@ def story(request, story_name_slug):
 
 def render_most_popular_subtree(request, paragraph_id):
     context_dict = {}
-
     try:
         paragraph = Paragraph.objects.get(id=paragraph_id)
-        print paragraph
         subtree = queries.getMostPopularSubtree(paragraph)
-        print subtree
         context_dict['subtree'] = subtree
     except:
         pass
-
     return render(request, 'story_block.html', context_dict)
 
 def search(request,q):
     cat = request.GET.get("filter")
     if q:
-       story_results = Story.objects.filter(title__icontains=q).order_by('-favourite')[:5]
-       user_results = User.objects.filter(username__icontains=q)
-       category_results= Category.objects.filter(title__icontains=q)
+       story_results = Story.objects.filter(title__icontains=q)[:5]
+       user_results = User.objects.filter(username__icontains=q)[:5]
+       category_results= Category.objects.filter(title__icontains=q)[:5]
     else:
-       story_results = Story.objects.none()
-       user_results=User.objects.none()
-       category_results=Category.objects.none()
+        story_results = Story.objects.none()
+        user_results=User.objects.none()
+        category_results=Category.objects.none()
     context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
     return render(request, "search.html", context)
 
-def get_next_5(request):
-    cat = request.GET.get("filter")
+       #story_results = Story.objects.filter(title__icontains=q).order_by('-favourite')[:5]
+
+def search_top_stories(request):
+    if request.method == 'GET':
+        start = int(request.GET.get('start', 5))
+        end = int(request.GET.get('end', 10))
+        q = request.GET.get('q', "")
+
+        try:
+           stories = Story.objects.filter(title__icontains=q)
+        except:
+           stories= None
+
+        context_dict = {}
+
+        stories=stories[start:end]
+        context_dict['stories'] = stories
+        return render(request, 'stories_list.html', context_dict)
