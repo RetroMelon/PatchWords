@@ -141,6 +141,10 @@ a:hover {
   overflow: hidden;
 }
 
+.story-item:hover {
+  background-color: #f5f5f5;
+}
+
 .story-item .story-item-title {
   height: 100%;
   width: 25%;
