@@ -2,6 +2,7 @@ from django import forms
 from registration.forms import RegistrationForm
 from django.contrib.auth.models import User
 from models import UserProfile
+from models import *
 
 class Registration(RegistrationForm):
     picture = forms.ImageField(required=False)
@@ -42,4 +43,12 @@ class NewParagraph(forms.ModelForm):
     class Meta:
         #model = Paragraph
         exclude = ('story', 'parent', 'author','created_datetime')
+
+class StoryForm(forms.ModelForm):
+    title = forms.CharField(max_length=200, help_text="Title", required = True)
+    author = "test"
+    category = 'test'
+    class Meta:
+        model = Story
+        exclude = ('created_datetime', 'slug')
 
