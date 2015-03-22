@@ -1,3 +1,5 @@
+{% load stories_tags %}
+
 <div class='row story-row'>
     <div class='col-md-offset-2 col-md-8'>
       <div class="carousel slide" data-ride="carousel" id="quote-carousel{{paragraphs.0.id}}">
@@ -15,6 +17,18 @@
                   <p>{{paragraph.content}}</p>
                   <small>{{paragraph.author}}, {{paragraph.likes}} likes.</small>
                   <small>id {{paragraph.id}}</small>
+
+                  <div>
+                    {% if paragraph|liked_by:user %}
+                      <a href="#" class="btn btn-xs btn-info btn-like"><span class="glyphicon glyphicon-heart"></span> Liked</a>
+                    {% else %}
+                      <a href="#" class="btn btn-xs btn-info btn-like"><span class="glyphicon glyphicon-heart-empty"></span> Like</a>
+                    {% endif %}
+
+                    {% if not paragraph.end %}
+                    <a href="#" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span> Add Below</a>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
             </blockquote>

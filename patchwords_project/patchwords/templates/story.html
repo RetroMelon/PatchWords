@@ -13,7 +13,8 @@
   {% if story%}
 
   <h1>{{story.title}}</h1>
-  <a class="text-muted" href="#"><em>by {{story.author}}</em></a>
+
+  by<a href ="{% url 'profile' story.author.username %}" class="text-muted" href="#"><em> {{story.author}}</em></a>
 
   <div class='row story-row'>
     <div class='col-md-offset-2 col-md-8'>
@@ -28,7 +29,7 @@
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
                   <p>{{root_paragraph.content}}</p>
-                  <small>{{root_paragraph.author}}</small>
+                  <a href="{% url 'profile' root_paragraph.author %}"><small>{{root_paragraph.author}}</small></a>
                   <small>id {{root_paragraph.id}}</small>
                 </div>
               </div>

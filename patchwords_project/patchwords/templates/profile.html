@@ -42,6 +42,11 @@
 								<p><b>Gender: </b><span>{{ user_profile.gender }}</span></p>
 								{% endif %}
 							</li>
+                            {% if user_profile.total_likes %}
+                              <li class="list-group-item">
+							    <p><b>Total likes: </b><span>{{ user_profile.total_likes }}</span></p>
+							  {% endif %}
+							</li>
 						</ul>
 					</div>
 					{% if flag %}

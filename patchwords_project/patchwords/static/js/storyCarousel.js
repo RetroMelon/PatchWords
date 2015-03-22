@@ -17,12 +17,10 @@ function onSlide (e) {
     parentCarousel.after(data);
 
     var nextstuff = parentCarousel.nextAll();
-    console.log(nextstuff);
 
     //setting up the carousels not to auto-cycle
     //parentCarousel.nextAll()
     $('.story-row').each(function(i, val){
-      alert(val);
       $(val).carousel({
         //pause: true,
         interval: false,
@@ -50,5 +48,10 @@ $(document).ready(function() {
 
 
 $(document).on('mouseleave','.carousel', function(){
+  $(this).carousel('pause');
+});
+
+$(document).on('click','.btn-like', function(e){
+  console.log(e);
   $(this).carousel('pause');
 });
