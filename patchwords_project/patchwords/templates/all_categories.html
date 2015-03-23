@@ -10,9 +10,11 @@
       {% if user.is_authenticated %}
       <h1>Post story will go here.</h1>
       <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-          I made it so the gif shows up if the user is logged then realised we were making the learn button more open that
-          and idk how to do that. Thought this could be a quick fix for now since I'd already done it. Can't seem to right
-	 align login/register/login to the right.
+      <div class="right-align">
+      <button id="help" class="btn btn-default btn-xs" onclick="showGif()"><span class="glyphicon glyphicon-question-sign"></span> Help</button>
+      <button id="less" class="btn btn-default btn-xs" onclick="hideGif()"/><span class="glyphicon glyphicon-question-sign"></span> Less</button>
+      <div><img src = "" id = "static/images/explanationgif.gif"/>
+      </div>
       <p>...</p>
       {% else %}
       <img class="center-block" id="explanation-gif" src="{% static "images/explanationgif.gif" %}" alt="" />
