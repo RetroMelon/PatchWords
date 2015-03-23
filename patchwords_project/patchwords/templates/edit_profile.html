@@ -2,12 +2,88 @@
 
 {% load staticfiles %}
 
+{% block css_imports %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+{% endblock %}
+
+{% block title %}Edit your profile{% endblock %}
+
 {% block body %}
-<form id="edit_profile_form" method="post" action="/patchwords/edit_profile/" enctype="multipart/form-data">
+<form id="edit_profile_form" method="post" action="/patchwords/edit_profile/" enctype="multipart/form-data" style="max-width:750px">
 	{% csrf_token %}
-	{{ user_form.as_p }}
-	<a href="{% url 'auth_password_change' %}">Change password</a>
-	{{ user_profile_form.as_p }}
-<input type="submit" name="submit" value="Update" />
+{% if form.errors %}
+    <div class="text-danger">Please correct the error{{ form.errors|pluralize }} below.</div>
+    {% endif %}
+	
+	<div class="row">
+<div class="col-xs-6">		
+<div class="form-group">
+ <p class="required"> <label for="id_username">Username:</label>
+     <input class="form-control"  id="id_username" maxlength="30" name="username" type="text"  placeholder="Enter username"/></p>
+            {% if form.username.errors %}
+              <span class="help-block">
+                {% for error in form.username.errors %}{{ error }}{% endfor %}
+              </span>
+            {% endif %}
+       </div>  
+</div>
+
+ <div class="col-xs-6">
+ <div class="form-group">
+    <p class="required"><label for="id_email">E-mail:</label>
+        <input class="form-control" id="id_email" name="email" type="email" placeholder="Enter email" /></p>
+		{% if form.email.errors %}
+              <span class="help-block">
+                {% for error in form.email.errors %}{{ error }}{% endfor %}
+              </span>
+            {% endif %}
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+
+<div class="col-xs-6">
+				<div class="form-group">
+    <p><label for="id_picture">Picture</label>
+        <input class="form-control" id="id_picture" accept="image/*" name="picture" type="file" placeholder="Enter a profile picture" /></p>
+ </div>
+ </div>
+
+
+	<div class="col-xs-6">
+ <div class="form-group"><label for="datepicker">Date Of Birth</label>
+	<p><input class="form-control"  id="datepicker"  name="date_of_birth" type="text"  placeholder="Select Date of Birth"/></p>
+</div>
+</div>
+</div>
+
+<div class="form-group">
+<p><label for="id_bio">Bio</label>
+<input class="form-control" id="id_bio" name="bio" type="text" placeholder="Enter some info" /></p>
+</div>
+		
+	
+	<div class="radio-inline">
+    <p><input class="radio-inline" id="id_male" name="inlineRadioOptions" type="radio"/><strong>Male</strong></p>
+</div>
+<div class="radio-inline">
+	<p><input class="radio-inline" id="id_female" name="inlineRadioOptions" type="radio"><strong>Female</strong></p>
+</div>
+
+<h3><span class="label label-success"><a href="{% url 'auth_password_change' %}">Change password</a></span></h3>
+</br>
+
+	
+	<input type="submit" name="submit" value="Update" />
 </form>
+
+{% endblock %}
+
+
+{% block js_imports %} 
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="{% static 'js/datepicker.js' %}"></script>
 {% endblock %}
