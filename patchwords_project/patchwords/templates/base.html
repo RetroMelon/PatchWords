@@ -45,6 +45,7 @@
       <a class="navbar-text" href="{% url 'profile' user.username%}">{{ user.username }}</a>
       <a class="navbar-text" href="{% url 'auth_logout' %}?next=/patchwords/">Logout</a>
       {% else %}
+              <h4>
       <a class="navbar-text" href="{% url 'auth_login' %}?next=/patchwords/">Login</a>
       <a class="navbar-text" href="{% url 'registration_register' %}">Register Here</a>
           </h4>

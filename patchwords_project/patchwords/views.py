@@ -244,7 +244,6 @@ def new_paragraph(request):
     call_type = request.GET.get('type', '')
     parent_id = int(request.GET.get('parentid'))
     content = request.GET.get('content')
-    print call_type, parent_id, content
 
     if call_type == 'submit':
         #getting the parent paragraph
@@ -255,8 +254,9 @@ def new_paragraph(request):
         new_paragraph.save()
 
         #returning a rendered block of the rest of the stories.
-        subtree = queries.getMostPopularSubtree(new_paragraph)
+        subtree = queries.getMostPopularSubtree(parent_paragraph)
         context_dict['subtree'] = subtree
+
         return render(request, 'story_block.html', context_dict)
     else:
         #return rendered form template
