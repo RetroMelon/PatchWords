@@ -14,7 +14,7 @@ def user_created(sender, user, request, **kwargs):
     try:
         data.bio = form.data["bio"]
     except:
-        data.bio = ""
+        pass
     try:
         string_date = form.data["date_of_birth"]
         string_date_formatted = string_date[6:]+string_date[3:5]+string_date[:2]

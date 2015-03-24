@@ -115,11 +115,13 @@ def profile(request, username, user_profile=None):
     else:
         flag = False
         user = User.objects.get(username=username)
+        print user
         user_profile = UserProfile.objects.get(user=user)
         actual_user = User.objects.get(username=request.user.username)
     context_dict = {}
-    context_dict['user'] = user_profile.user
+    context_dict['user'] = request.user
     context_dict['user_profile'] = user_profile
+    context_dict['current_profile'] = user_profile.user
     if flag:
         context_dict['flag'] = True
     else:
