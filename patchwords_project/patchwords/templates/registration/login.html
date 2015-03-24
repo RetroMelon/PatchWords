@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Login{% endblock %}
+
 {% block body %}
 
 <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
 
+
+<div class = 'jumbotron'>
+<div class = 'container' id = 'jumbotron-container'>
+
 <form class="form-signin" role="form" method="post" action=".">
 {% csrf_token %}
 
-<h2 class="form-signin-heading">Please log in</h2>
+<h2 class="form-signin-heading text-white">Please log in</h2>
 
 {% if form.errors %}
     <div class="text-danger">Please correct the error{{ form.errors|pluralize }} below.</div>
@@ -19,13 +26,14 @@
 </form>
 
 {% if form.non_field_errors %}
-				<span class="help-block" align="center">
+				<span class="help-block text-white" align="center">
 				The username and password combination was incorrect
 				{% endif %}
 				</span>
 
-<h3 align = "center">Not a Member? <a href="{% url 'registration_register' %}">Register Here</a></h3>
-		
+<h3 align = "center" class = 'text-white'>Not a Member? <a href="{% url 'registration_register' %}">Register Here</a></h3>
+</div>
+</div>		
 
 
 {% endblock %}
