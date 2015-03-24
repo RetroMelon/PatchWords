@@ -146,11 +146,16 @@ def profile(request, username, user_profile=None):
     else:
         flag = False
         user = User.objects.get(username=username)
+        print user
         user_profile = UserProfile.objects.get(user=user)
-        actual_user = User.objects.get(username=request.user.username)
+        try:
+            actual_user = User.objects.get(username=request.user.username)
+        except:
+            actual_user= user
     context_dict = {}
-    context_dict['user'] = user_profile.user
+    context_dict['user'] = request.user
     context_dict['user_profile'] = user_profile
+    context_dict['current_profile'] = user_profile.user
     if flag:
         context_dict['flag'] = True
     else:
@@ -209,8 +214,6 @@ def search(request,q):
     context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
     return render(request, "search.html", context)
 
-       #story_results = Story.objects.filter(title__icontains=q).order_by('-favourite')[:5]
-
 
 #takes a username and paragraph and likes or unlikes the paragraph.
 #returns the new number of likes the paragraph has.
@@ -231,6 +234,36 @@ def like(request):
 
     print "like request", paragraph_id, like_type, user
     return HttpResponse(paragraph.likes)
+
+#if get we get a form to make a new paragraph with. if post we add a new paragraph and refresh the page.
+def new_paragraph(request):
+    if not request.user.is_authenticated:
+        return HttpResponse('You must be authenticated to perform this action!')
+
+    context_dict = {}
+    call_type = request.GET.get('type', '')
+    parent_id = int(request.GET.get('parentid'))
+    content = request.GET.get('content')
+    print call_type, parent_id, content
+
+    if call_type == 'submit':
+        #getting the parent paragraph
+        parent_paragraph = Paragraph.objects.get(id=parent_id)
+
+        #creating teh new paragraph
+        new_paragraph = Paragraph(author=request.user, content=content, parent=parent_paragraph, story=parent_paragraph.story)
+        new_paragraph.save()
+
+        #returning a rendered block of the rest of the stories.
+        subtree = queries.getMostPopularSubtree(new_paragraph)
+        context_dict['subtree'] = subtree
+        return render(request, 'story_block.html', context_dict)
+    else:
+        #return rendered form template
+        print parent_id
+        context_dict['parentid'] = parent_id
+
+        return render(request, 'new_paragraph.html', context_dict)
 
 def search_top_stories(request):
     if request.method == 'GET':

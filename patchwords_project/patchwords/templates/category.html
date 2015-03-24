@@ -5,6 +5,8 @@
 {% block title %}{{ category }}{% endblock %}
 
 {% block body %}
+
+    {% include s %}
 <div class="jumbotron">
   <div class="container" id="jumbotron-container">
       {% if user.is_authenticated %}

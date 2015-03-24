@@ -6,12 +6,23 @@
 <form class="form-signin" role="form" method="post" action=".">
 {% csrf_token %}
 
-<h2 class="form-signin-heading">Please sign in</h2>
+<h2 class="form-signin-heading">Please log in</h2>
+
+{% if form.errors %}
+    <div class="text-danger">Please correct the error{{ form.errors|pluralize }} below.</div>
+    {% endif %}
+	
 <input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
 <input type="password" class="form-control" placeholder="Password" id="id_password" name="password" type="password" required />
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />Log in</button>
 </form>
+
+{% if form.non_field_errors %}
+				<span class="help-block" align="center">
+				The username and password combination was incorrect
+				{% endif %}
+				</span>
 
 <h3 align = "center">Not a Member? <a href="{% url 'registration_register' %}">Register Here</a></h3>
 		
