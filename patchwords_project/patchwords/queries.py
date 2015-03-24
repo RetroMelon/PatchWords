@@ -39,12 +39,43 @@ def _sortParagraphs(paragraphs):
     if not paragraphs:
         return []
     #zipping paragraphs with likes
+    #zipped = map(lambda x: (x.likes, x), paragraphs)
+    #zipped.sort()
+    #zipped.reverse()
+
+    print paragraphs
+
+    #sorting by likes then date
+    def comparator(x, y):
+        #if we have the same likes we should compare dates instead
+        if x.likes == y.likes:
+            print x.likes, "and", y.likes, "are equal."
+            dt_difference = (x.created_datetime < y.created_datetime)
+            return int(dt_difference)
+        else:
+            return y.likes - x.likes
+
+    #unzipped = zip(*zipped)[1]
+    #return unzipped
+    print "WAAAAAT"
+    paragraphs = sorted(paragraphs, cmp=comparator)
+    print "HELLOOOOOO"
+    print "parapgraphs", paragraphs
+
+    return paragraphs
+
+
+def _sortParagraphs2(paragraphs):
+    if not paragraphs:
+        return []
+    #zipping paragraphs with likes
     zipped = map(lambda x: (x.likes, x), paragraphs)
     zipped.sort()
     zipped.reverse()
 
     unzipped = zip(*zipped)[1]
     return unzipped
+
 
 #a wrapper around getMostPopularSubtree
 def getMostPopularSubtree(paragraph):
