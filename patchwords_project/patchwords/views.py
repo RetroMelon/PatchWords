@@ -15,10 +15,12 @@ def home(request):
             title = form.cleaned_data.get('title')
             usernames = request.user.username
             boop = form.cleaned_data.get('text')
+            category = Category.objects.get(title = form.cleaned_data.get('cat'))
 
             user = User.objects.get(username = usernames)
             story = form.save(commit = False)
             story.author = user
+            story.category = category
             story.save()
 
             stoz = Story.objects.get(title = title)
@@ -33,6 +35,10 @@ def home(request):
     else:
         form = StoryForm()
     context_dict['form'] = form
+
+    #getting all of the categories
+    allOfTheCategories = Category.objects.all()
+    context_dict['allOfTheCategories'] = allOfTheCategories
 
     #getting the most popular categories
     categories = queries.getTopCategories()
@@ -66,6 +72,31 @@ def get_top_stories(request):
 
 def category(request, category_name_slug):
     context_dict= {}
+    if request.method == 'POST':
+        form = StoryForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            usernames = request.user.username
+            boop = form.cleaned_data.get('text')
+            category = Category.objects.get(title = form.cleaned_data.get('cat'))
+
+            user = User.objects.get(username = usernames)
+            story = form.save(commit = False)
+            story.author = user
+            story.category = category
+            story.save()
+
+            stoz = Story.objects.get(title = title)
+
+            boops = Paragraph(content=boop, story=stoz, parent = None, author = user)
+            boops.save()
+
+            sluggy = Story.objects.get(title = title).slug
+            return HttpResponseRedirect('/patchwords/story/'+sluggy)
+        else:
+            print form.errors
+    else:
+        form = StoryForm()
 
     try:
         category = Category.objects.get(slug=category_name_slug)

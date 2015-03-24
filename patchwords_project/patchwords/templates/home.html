@@ -17,17 +17,20 @@
       </div>
 	  <form role="form"  id="page_form" method="post" action="/patchwords/">
 
-                    {% csrf_token %}
-                    {% for hidden in form.hidden_fields %}
-                        {{ hidden }}
-                    {% endfor %}
+                   <input type='hidden' name='csrfmiddlewaretoken' value='jeOvZxwaJFyuNOXET06KMO7NvbPt3b5Z' />
+           
+                        <input class = "form-control" placeholder = 'Title' "id="id_title" maxlength="100" name="title" type="text" /><br/>
+                    
+						
+                        <input class = "form-control" placeholder = 'Write your first paragraph' "id="id_text" maxlength="140" name="text" type="text" /><br>
 
-                    {% for field in form.visible_fields %}
-                        {{ field.errors }}
-                        {{ field.help_text }}<br/>
-                        {{ field }}<br/>
-                    {% endfor %}
-
+                        <select class = "btn btn-default dropdown-toggle" id="id_cat" name="cat">
+<option value="" selected="selected">Category</option>
+{% for category in allOfTheCategories %}
+<option>{{category}}</option>
+{% endfor %}
+</select><br/>
+                   
                 <br/>
             <button class="btn btn-primary" type="submit" name="submit">Submit</button>
                 </form>
@@ -50,7 +53,6 @@
             document.getElementById('less').style.display = 'none'
         }
       </script>
-      <p>...</p>
       {% else %}
       <img class="center-block" id="explanation-gif" src="{% static "images/explanationgif.gif" %}" alt="" />
       {% endif %}

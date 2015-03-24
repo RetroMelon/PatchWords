@@ -45,10 +45,11 @@ class ParagraphForm(forms.ModelForm):
         exclude = ('story', 'parent', 'author','created_datetime')
 
 class StoryForm(forms.ModelForm):
-    title = forms.CharField(max_length=200, help_text="Title", required = True)
-    category = 'test'
-    text = forms.CharField(max_length=200, help_text="Title", required = False)
+    title = forms.CharField(max_length=100, help_text='Title', required = True)
+    #category = forms.ModelChoiceField(queryset=Category.objects.all().order_by('title'), help_text = "Category", required = True)
+    cat = forms.CharField(required = True)
+    text = forms.CharField(max_length=140, help_text="First Paragraph", required = True)
     class Meta:
         model = Story
-        exclude = ('created_datetime', 'author', 'slug')
+        exclude = ('created_datetime', 'author', 'slug', 'category')
 
