@@ -117,7 +117,10 @@ def profile(request, username, user_profile=None):
         user = User.objects.get(username=username)
         print user
         user_profile = UserProfile.objects.get(user=user)
-        actual_user = User.objects.get(username=request.user.username)
+        try:
+            actual_user = User.objects.get(username=request.user.username)
+        except:
+            actual_user= user
     context_dict = {}
     context_dict['user'] = request.user
     context_dict['user_profile'] = user_profile

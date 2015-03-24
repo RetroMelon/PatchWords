@@ -79,7 +79,7 @@ def populate_paragraph():
         para = add_paragraph(random.choice(sentences), s, None, s.author)
         paragraphs.append(para)
 
-        for i in range(20):
+        for i in range(2):
             #creating a paragraph with random sentence, parent, user
             para = add_paragraph(random.choice(sentences), s, random.choice(paragraphs), random.choice(users))
 
@@ -94,7 +94,7 @@ def populate_like():
     #getting all of the paragraphs in the database
     paras = Paragraph.objects.all()
 
-    for i in range(4000):
+    for i in range(8):
         add_like(random.choice(users), random.choice(paras))
 
 
@@ -105,12 +105,12 @@ def populate_favourite():
     #getting all of the stories in the database
     stories = Story.objects.all()
 
-    for i in range(3000):
+    for i in range(6):
         add_favourite(random.choice(users), random.choice(stories))
 
 
 #the functions used to add stuff to the database
-def add_user(username, email, password, bio="", date_of_birth=None, picture = None):
+def add_user(username, email, password, bio="", date_of_birth=None, picture="profile_images/blank-user.jpg"):
     #creating the django user
     django_user = DjangoUser.objects.get_or_create(username=username, email=email)[0]
     django_user.set_password(password)
