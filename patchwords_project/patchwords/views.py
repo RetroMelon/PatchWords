@@ -180,8 +180,6 @@ def search(request,q):
     context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
     return render(request, "search.html", context)
 
-       #story_results = Story.objects.filter(title__icontains=q).order_by('-favourite')[:5]
-
 
 #takes a username and paragraph and likes or unlikes the paragraph.
 #returns the new number of likes the paragraph has.
