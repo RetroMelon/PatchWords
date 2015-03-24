@@ -27,7 +27,7 @@ function onSlide (e) {
     });
 
     //setting up the carousels to recognise clicks
-    parentCarousel.nextAll().on('slid.bs.carousel', onSlide);
+    //parentCarousel.nextAll().on('slid.bs.carousel', onSlide);
   });
 
   //console.log("loaded new data for paragraph "+item.attr('paragraph-id')+"'s subtree");
@@ -41,10 +41,9 @@ $(document).ready(function() {
     pause: true,
     interval: false,
   });
-
-  $('.carousel').on('slid.bs.carousel', onSlide);
 });
 
+$(document).on('slid.bs.carousel','.carousel', onSlide);
 
 $(document).on('mouseleave','.carousel', function(){
   $(this).carousel('pause');
@@ -110,10 +109,6 @@ $(document).on('click','.btn-add', function(e){
   //var nextStoryRows = parentStoryRow.nextAll('.story-row');
   var parentParagraphId = btn.closest('.item').attr('paragraph-id');
 
-  function onSubmit(e) {
-    location.reload();
-  }
-
   //removing all of the next story rows.
   parentStoryRow.nextAll().remove();
   console.log(parentParagraphId);
@@ -140,8 +135,37 @@ $(document).on('click','.btn-add-submit', function(e){
   var content = $('#content').val();
   console.log(parentParagraphId + "    " + content);
 
-  function onSubmit(e) {
-    location.reload();
+  function onSubmit(data) {
+    console.log(data);
+    //removing this form from the DOM
+    $('.new-paragraph-row').remove();
+
+    //adding the data
+    var parentStoryRow = $('#story-container').children().last();
+    console.log("last");
+    console.log(parentStoryRow);
+    parentStoryRow.after(data);
+
+    //getting the new story row, and sliding left to show the user's paragraph.
+    var newStoryRow = parentStoryRow.next();
+    newStoryRow.carousel('prev');
+    newStoryRow.carousel('pause');
+
+    //flashing the paragraph to draw attention
+    var active = newStoryRow.find('.active');
+    console.log(active);
+    active.css("background-color", "#FFFF99");
+    active.stop().animate({backgroundColor: "white"}, 10);
+
+    //updating all of the carousels to pause them
+    $('.story-row').each(function(i, val){
+      $(val).carousel({
+        pause: true,
+        interval: false,
+      });
+
+
+    });
   }
 
   //showing a form to add a paragraph.
