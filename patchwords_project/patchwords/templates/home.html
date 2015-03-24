@@ -21,10 +21,10 @@
       </br>
 
                    <input type='hidden' name='csrfmiddlewaretoken' value='jeOvZxwaJFyuNOXET06KMO7NvbPt3b5Z' />
-           
+
                         <input class = "form-control" placeholder = 'Title' "id="id_title" maxlength="100" name="title" type="text" /><br/>
-                    
-						
+
+
                         <input class = "form-control" placeholder = 'Write your first paragraph' "id="id_text" maxlength="140" name="text" type="text" /><br>
 
                         <select class = "btn btn-default dropdown-toggle" id="id_cat" name="cat">
@@ -103,6 +103,7 @@
 
 {% block js_imports %}
   <script src="{% static 'js/getMoreStories.js' %}"></script>
+  <script src="{% static 'js/favouriteButton.js' %}"></script>
   <script charset="utf-8">
     categoryTitle = ""; //In the category pages, this will be used to filter by category using {{category.title}}
   </script>

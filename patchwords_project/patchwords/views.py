@@ -235,6 +235,28 @@ def like(request):
     print "like request", paragraph_id, like_type, user
     return HttpResponse(paragraph.likes)
 
+
+#takes a username and paragraph and likes or unlikes the paragraph.
+#returns the new number of likes the paragraph has.
+def favourite(request):
+    story_id = int(request.GET.get('story'))
+    favourite_type = request.GET.get('type')
+    user = request.user
+
+    story = Story.objects.get(id=story_id)
+
+    #we want to check the database to see if a like is in existence and if it is remove it.
+    if favourite_type == 'favourite':
+        Favourite.objects.get_or_create(user=user, story=story)
+    else:
+        #getting all of the favourites associated with this user & story combo (there should only be one)
+        favourites = Favourite.objects.filter(user=user, story=story)
+        for f in favourites:
+            f.delete()
+
+    print "favourite request", story_id, favourite_type, user
+    return HttpResponse(story.favourites)
+
 #if get we get a form to make a new paragraph with. if post we add a new paragraph and refresh the page.
 def new_paragraph(request):
     if not request.user.is_authenticated:

@@ -136,7 +136,6 @@ $(document).on('click','.btn-add-submit', function(e){
   console.log(parentParagraphId + "    " + content);
 
   function onSubmit(data) {
-    console.log(data);
     //removing this form from the DOM
     $('.new-paragraph-row').remove();
 

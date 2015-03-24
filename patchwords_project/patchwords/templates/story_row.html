@@ -23,9 +23,9 @@
                     <span class="badge" id="badge-{{paragraph.id}}">{{paragraph.likes}}</span>
                     {% if user.is_authenticated %}
                       {% if paragraph|liked_by:user %}
-                        <button class="btn btn-xs btn-info btn-like" state="liked"><span class="glyphicon glyphicon-heart btn-glyph"></span><span class="like-text"> Liked</span></button>
+                        <button class="btn btn-xs btn-info btn-like" state="liked"><span class="glyphicon glyphicon-heart btn-glyph"></span><span class="like-text noevents"> Liked</span></button>
                       {% else %}
-                        <button class="btn btn-xs btn-info btn-like" state="unliked"><span class="glyphicon glyphicon-heart-empty btn-glyph"></span><span class="like-text"> Like</span></button>
+                        <button class="btn btn-xs btn-info btn-like" state="unliked"><span class="glyphicon glyphicon-heart-empty btn-glyph"></span><span class="like-text noevents"> Like</span></button>
                       {% endif %}
 
                       {% if not paragraph.end %}
