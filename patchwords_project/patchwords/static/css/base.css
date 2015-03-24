@@ -4,6 +4,10 @@
   float: none;
 }
 
+.block {
+  display: block;
+}
+
 .vcenter-transform {
   top: 50%;
   position: absolute;
@@ -41,6 +45,18 @@
 
 .text-black {
   color: black;
+}
+
+.text-small {
+  font-size: 80%;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.radius-4 {
+  border-radius: 4px;
 }
 
 .jumbotron {
