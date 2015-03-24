@@ -1,4 +1,5 @@
 {% load stories_tags %}
+{% load humanize %}
 
 <div class='row story-row'>
     <div class='col-md-offset-2 col-md-8'>
@@ -15,7 +16,7 @@
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
                   <p>{{paragraph.content}}</p>
-                  <small>{% if paragraph.author == user %}You {% else %}{{paragraph.author}} {% endif %}, {{paragraph.created_datetime}} </small>
+                  <small>{% if paragraph.author == user %}You {% else %}{{paragraph.author}} {% endif %} ({{paragraph.created_datetime|naturaltime}}) </small>
 
 
                   <div>
