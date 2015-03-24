@@ -5,17 +5,59 @@
 {% block title %}{{ category }}{% endblock %}
 
 {% block body %}
+
 <div class="jumbotron">
   <div class="container" id="jumbotron-container">
       {% if user.is_authenticated %}
-      <h1>Post story will go here.</h1>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-      <p>...</p>
+
+      <h2 class="text-center text-white">Start your own story here!</h2>
+      <div class="right-align">
+      <button id="help" class="btn btn-default btn-xs" onclick="showGif()"><span class="glyphicon glyphicon-question-sign"></span> Help</button>
+      <button id="less" class="btn btn-default btn-xs" onclick="hideGif()"/><span class="glyphicon glyphicon-question-sign"></span> Less</button>
+      <div><img src = "" id = "static/images/explanationgif.gif"/>
+      </div>
+      </div>
+	  <form role="form"  id="page_form" method="post" action="/patchwords/category/{{category.slug}}/">
+
+                   <input type='hidden' name='csrfmiddlewaretoken' value='jeOvZxwaJFyuNOXET06KMO7NvbPt3b5Z' />
+           
+                        <input class = "form-control" placeholder = 'Title' "id="id_title" maxlength="100" name="title" type="text" /><br/>
+                    
+						
+                        <input class = "form-control" placeholder = 'Write your first paragraph' "id="id_text" maxlength="140" name="text" type="text" /><br>
+
+                        <select class = "btn btn-default" id="id_cat" name="cat">
+<option>{{category}}</option>
+</select><br/>
+                   
+                <br/>
+            <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+                </form>
+      <script type = "text/javascript">
+      window.onload = function hideMinimise()
+      {
+          document.getElementById("less").style.display='none';
+      }
+        function showGif()
+        {
+            document.getElementById("static/images/explanationgif.gif").src="{% static "images/explanationgif.gif" %}";
+            document.getElementById("static/images/explanationgif.gif").style.display='block';
+            document.getElementById('help').style.display = 'none';
+            document.getElementById('less').style.display = 'block';
+        }
+      function hideGif()
+        {
+            document.getElementById("static/images/explanationgif.gif").style.display = 'none'
+            document.getElementById('help').style.display = 'block';
+            document.getElementById('less').style.display = 'none'
+        }
+      </script>
       {% else %}
       <img class="center-block" id="explanation-gif" src="{% static "images/explanationgif.gif" %}" alt="" />
       {% endif %}
   </div>
 </div>
+	  
 <div class="background-red" id="main-content">
   {% if category %}
   <div class="container">

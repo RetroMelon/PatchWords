@@ -15,10 +15,12 @@ def home(request):
             title = form.cleaned_data.get('title')
             usernames = request.user.username
             boop = form.cleaned_data.get('text')
+            category = Category.objects.get(title = form.cleaned_data.get('cat'))
 
             user = User.objects.get(username = usernames)
             story = form.save(commit = False)
             story.author = user
+            story.category = category
             story.save()
 
             stoz = Story.objects.get(title = title)
@@ -33,6 +35,10 @@ def home(request):
     else:
         form = StoryForm()
     context_dict['form'] = form
+
+    #getting all of the categories
+    allOfTheCategories = Category.objects.all()
+    context_dict['allOfTheCategories'] = allOfTheCategories
 
     #getting the most popular categories
     categories = queries.getTopCategories()
@@ -66,6 +72,31 @@ def get_top_stories(request):
 
 def category(request, category_name_slug):
     context_dict= {}
+    if request.method == 'POST':
+        form = StoryForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            usernames = request.user.username
+            boop = form.cleaned_data.get('text')
+            category = Category.objects.get(title = form.cleaned_data.get('cat'))
+
+            user = User.objects.get(username = usernames)
+            story = form.save(commit = False)
+            story.author = user
+            story.category = category
+            story.save()
+
+            stoz = Story.objects.get(title = title)
+
+            boops = Paragraph(content=boop, story=stoz, parent = None, author = user)
+            boops.save()
+
+            sluggy = Story.objects.get(title = title).slug
+            return HttpResponseRedirect('/patchwords/story/'+sluggy)
+        else:
+            print form.errors
+    else:
+        form = StoryForm()
 
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -117,7 +148,10 @@ def profile(request, username, user_profile=None):
         user = User.objects.get(username=username)
         print user
         user_profile = UserProfile.objects.get(user=user)
-        actual_user = User.objects.get(username=request.user.username)
+        try:
+            actual_user = User.objects.get(username=request.user.username)
+        except:
+            actual_user= user
     context_dict = {}
     context_dict['user'] = request.user
     context_dict['user_profile'] = user_profile
@@ -179,8 +213,6 @@ def search(request,q):
         category_results=Category.objects.none()
     context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
     return render(request, "search.html", context)
-
-       #story_results = Story.objects.filter(title__icontains=q).order_by('-favourite')[:5]
 
 
 #takes a username and paragraph and likes or unlikes the paragraph.
