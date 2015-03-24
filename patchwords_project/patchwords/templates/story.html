@@ -19,22 +19,28 @@
     </p>
   </div>
 
-  <div class="container">
+  <div class="container" id="#story-container">
     <div class='row story-row'>
       <div class='col-md-offset-2 col-md-8'>
-        <div class="carousel slide" data-ride="carousel">
+        <div class="carousel slide" data-ride="carousel" id="quote-carousel{{root_paragraph.id}}">
 
           <!-- Carousel Slides / Quotes -->
           <div class="carousel-inner">
 
             <!-- Quote 1 -->
-            <div class="item active">
+            <div class="item active" paragraph-id="{{root_paragraph.id}}">
               <blockquote>
                 <div class="row">
                   <div class="col-sm-10 col-sm-offset-1">
                     <p>{{root_paragraph.content}}</p>
                     <a href="{% url 'profile' root_paragraph.author %}"><small>{{root_paragraph.author}}</small></a>
-                    <small>id {{root_paragraph.id}}</small>
+                    {% if user.is_authenticated %}
+                    {% if not paragraph.end %}
+                    <button href="#" class="btn btn-xs btn-success btn-add"><span class="glyphicon glyphicon-plus btn-glyph"></span> Add Below</button>
+                    {% endif %}
+                    {% else %}
+                    <p class="pull-left text-muted text-small">   Log in/register to rate/add!</p>
+                    {% endif %}
                   </div>
                 </div>
               </blockquote>

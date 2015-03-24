@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2 padding-20 background-white radius-4" id="addchild-{{parentid}}">
+    {% csrf_token %}
+    <textarea id="content" class="block text-center" name="content" placeholder="Get creative!"></textarea>
+
+    <input type="hidden" id="parentid" name="parentid" value="{{parentid}}"></input>
+
+    <button class="btn btn-primary btn-add-submit" name="Submit" value="Submit">Submit</button>
+  </div>
+</div>

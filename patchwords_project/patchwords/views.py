@@ -201,6 +201,36 @@ def like(request):
     print "like request", paragraph_id, like_type, user
     return HttpResponse(paragraph.likes)
 
+#if get we get a form to make a new paragraph with. if post we add a new paragraph and refresh the page.
+def new_paragraph(request):
+    if not request.user.is_authenticated:
+        return HttpResponse('You must be authenticated to perform this action!')
+
+    context_dict = {}
+    call_type = request.GET.get('type', '')
+    parent_id = int(request.GET.get('parentid'))
+    content = request.GET.get('content')
+    print call_type, parent_id, content
+
+    if call_type == 'submit':
+        #getting the parent paragraph
+        parent_paragraph = Paragraph.objects.get(id=parent_id)
+
+        #creating teh new paragraph
+        new_paragraph = Paragraph(author=request.user, content=content, parent=parent_paragraph, story=parent_paragraph.story)
+        new_paragraph.save()
+
+        #returning a rendered block of the rest of the stories.
+        subtree = queries.getMostPopularSubtree(new_paragraph)
+        context_dict['subtree'] = subtree
+        return render(request, 'story_block.html', context_dict)
+    else:
+        #return rendered form template
+        print parent_id
+        context_dict['parentid'] = parent_id
+
+        return render(request, 'new_paragraph.html', context_dict)
+
 def search_top_stories(request):
     if request.method == 'GET':
         start = int(request.GET.get('start', 5))
