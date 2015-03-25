@@ -1,17 +1,21 @@
+.noevents {
+  pointer-events: none;
+}
+
 .vcenter {
   display: inline-block;
   vertical-align: middle;
   float: none;
 }
 
-.block {
-  display: block;
-}
-
 .vcenter-transform {
   top: 50%;
   position: absolute;
   transform: translate(0, -50%);
+}
+
+.block {
+  display: block;
 }
 
 .background-red {
@@ -196,10 +200,9 @@ a:hover {
 }
 
 .story-item-favourites {
-  font-size: 30px;
-  color: gold;
+  width: 20%;
 }
 
 .story-item-content {
-  width: 60%;
+  width: 50%;
 }

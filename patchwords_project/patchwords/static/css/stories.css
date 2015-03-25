@@ -43,10 +43,6 @@
   margin: 0px 10%;
 }
 
-.btn-glyph, .like-text {
-  pointer-events: none;
-}
-
 .btn-add-submit {
   margin: 10px 10px;
   float: right;
