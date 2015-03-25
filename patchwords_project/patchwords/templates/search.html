@@ -5,6 +5,7 @@
 {% block title %}Search{% endblock %}
 
 {% block body %}
+  <div class="container">
     {% if cat == 'All' or cat == 'Stories' %}
       {% if story_results %}
     <div class="panel panel-primary">
@@ -69,6 +70,7 @@
 
 
 {% endblock %}
+</div>
 {% block js_imports %}
   <script src="{% static 'js/searchMoreStories.js' %}"></script>
   <script charset="utf-8">
