@@ -19,17 +19,16 @@
     </div>
     <form role="form"  id="page_form" method="post" action="/patchwords/category/{{category.slug}}/">
 	</br>
-	
-	{% csrf_token %}
-	
-                   <input type='hidden' name='csrfmiddlewaretoken' value='jeOvZxwaJFyuNOXET06KMO7NvbPt3b5Z' />
-                        <input class = "form-control" placeholder = 'Title' "id="id_title" maxlength="100" name="title" type="text" required/><br/>                   						
-                        <input class = "form-control" placeholder = 'Write your first paragraph' "id="id_text" maxlength="140" name="text" type="text" required/><br>
 
-                        <select class = "btn btn-default" id="id_cat" name="cat" required>
+	{% csrf_token %}
+  <input class = "form-control" placeholder = 'Title' id="id_title" maxlength="100" name="title" type="text" required/><br/>
+  <input class = "form-control" placeholder = 'Write your first paragraph' id="id_text" maxlength="140" name="text" type="text" required/><br>
+
+  <select class = "btn btn-default" id="id_cat" name="cat" required>
+
 <option>{{category}}</option>
 </select><br/>
-                   
+
                 <br/>
             <button class="btn btn-primary" type="submit" name="submit">Submit</button>
                 </form>
@@ -59,7 +58,7 @@
       {% endif %}
   </div>
 </div>
-	  
+
 <div class="background-red" id="main-content">
   {% if category %}
   <div class="container">

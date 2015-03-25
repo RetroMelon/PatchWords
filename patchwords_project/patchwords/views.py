@@ -102,7 +102,7 @@ def category(request, category_name_slug):
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category'] = category
         context_dict['category_name_slug'] = category_name_slug
-        stories = queries.getTopStories()
+        stories = queries.getTopStories(category=category)
         context_dict['stories'] = stories
     except:
         pass
