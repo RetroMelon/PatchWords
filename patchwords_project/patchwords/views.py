@@ -131,31 +131,33 @@ def edit_profile(request):
             profile_to_edit.save()
             return profile(request,username,user_profile=user_profile)
     else:
-        user_data = {'username': user_profile.user.username,'email':user_profile.user.email}
-        user_profile_data = {'picture': user_profile.picture, 'bio':user_profile.bio,
-                             'gender':user_profile.gender}
         context_dict = {}
-        context_dict['user_form'] = UserForm(initial=user_data)
-        context_dict['user_profile_form'] = UserProfileForm(initial=user_profile_data)
+        context_dict['username'] = user_profile.user.username
+        context_dict['email'] = user_profile.user.email
+        context_dict['bio'] = user_profile.bio
+        context_dict['date_of_birth'] = user_profile.date_of_birth
         return render(request, 'edit_profile.html', context_dict)
 
 def profile(request, username, user_profile=None):
     if user_profile:
         flag = True
         user_profile = user_profile
+        actual_user = user_profile.user
     else:
         flag = False
+        current_user = User.objects.get(username=username)
+        user_profile = UserProfile.objects.get(user=current_user)
+        actual_user = User.objects.get(username=request.user.username)
         user = User.objects.get(username=username)
-        print user
         user_profile = UserProfile.objects.get(user=user)
         try:
             actual_user = User.objects.get(username=request.user.username)
         except:
             actual_user= user
     context_dict = {}
-    context_dict['user'] = request.user
+    context_dict['user'] = actual_user
+    context_dict['current_user'] = user_profile.user
     context_dict['user_profile'] = user_profile
-    context_dict['current_profile'] = user_profile.user
     if flag:
         context_dict['flag'] = True
     else:
