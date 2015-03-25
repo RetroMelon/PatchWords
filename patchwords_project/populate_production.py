@@ -118,8 +118,6 @@ def add_user(username, email, password, bio="", date_of_birth=None, picture="pro
     django_user.set_password(password)
     django_user.save()
 
-    print django_user
-
     #creating our kind of user
     user = UserProfile.objects.get_or_create(user=django_user, bio=bio, date_of_birth=date_of_birth, picture=picture)[0]
     print "CREATED USER: ", user
