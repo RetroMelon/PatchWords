@@ -19,17 +19,11 @@
       </div>
 	  <form role="form"  id="page_form" method="post" action="/patchwords/">
       </br>
-<<<<<<< HEAD
                    {% csrf_token %}
 				   
                         <input class = "form-control" placeholder = 'Title' "id="id_title" maxlength="100" name="title" type="text" required/><br/>			
-                        <input class = "form-control" placeholder = 'Write your first paragraph' "id="id_text" maxlength="140" name="text" type="text" required/><br>
-=======
-                       {% csrf_token %}
+                        <input class = "form-control" placeholder = 'Write your first paragraph' id="id_text" maxlength="140" name="text" type="text" required/><br>
 
-                        <input class = "form-control" placeholder = 'Title' id="id_title" maxlength="100" name="title" type="text" /><br/>
-                        <input class = "form-control" placeholder = 'Write your first paragraph' id="id_text" maxlength="140" name="text" type="text" /><br>
->>>>>>> 893c011e5f9aec4b0c90b4a975ee116dd985ed00
 
                         <select class = "btn btn-default dropdown-toggle" id="id_cat" name="cat" required >
 <option value="" selected="selected">Category</option>
