@@ -3,7 +3,7 @@
 from patchwords.models import Category, Story, Paragraph
 
 #gets a list of
-def getTopStories(start=0, end=20, category=None):
+def getTopStories(start=0, end=5, category=None):
     #getting the stories and zipping them with their favourites
     if not category:
         stories = Story.objects.all()
