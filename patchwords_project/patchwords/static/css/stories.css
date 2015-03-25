@@ -43,8 +43,14 @@
   margin: 0px 10%;
 }
 
-.btn-glyph, .like-text {
-  pointer-events: none;
+.btn-add-submit {
+  margin: 10px 10px;
+  float: right;
+}
+
+#content {
+  width: 100%;
+  margin: 10px 0px;
 }
 
 /* Small devices (tablets, up to 768px) */

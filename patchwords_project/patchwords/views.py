@@ -15,10 +15,12 @@ def home(request):
             title = form.cleaned_data.get('title')
             usernames = request.user.username
             boop = form.cleaned_data.get('text')
+            category = Category.objects.get(title = form.cleaned_data.get('cat'))
 
             user = User.objects.get(username = usernames)
             story = form.save(commit = False)
             story.author = user
+            story.category = category
             story.save()
 
             stoz = Story.objects.get(title = title)
@@ -33,6 +35,10 @@ def home(request):
     else:
         form = StoryForm()
     context_dict['form'] = form
+
+    #getting all of the categories
+    allOfTheCategories = Category.objects.all()
+    context_dict['allOfTheCategories'] = allOfTheCategories
 
     #getting the most popular categories
     categories = queries.getTopCategories()
@@ -66,12 +72,37 @@ def get_top_stories(request):
 
 def category(request, category_name_slug):
     context_dict= {}
+    if request.method == 'POST':
+        form = StoryForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            usernames = request.user.username
+            boop = form.cleaned_data.get('text')
+            category = Category.objects.get(title = form.cleaned_data.get('cat'))
+
+            user = User.objects.get(username = usernames)
+            story = form.save(commit = False)
+            story.author = user
+            story.category = category
+            story.save()
+
+            stoz = Story.objects.get(title = title)
+
+            boops = Paragraph(content=boop, story=stoz, parent = None, author = user)
+            boops.save()
+
+            sluggy = Story.objects.get(title = title).slug
+            return HttpResponseRedirect('/patchwords/story/'+sluggy)
+        else:
+            print form.errors
+    else:
+        form = StoryForm()
 
     try:
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category'] = category
         context_dict['category_name_slug'] = category_name_slug
-        stories = queries.getTopStories()
+        stories = queries.getTopStories(category=category)
         context_dict['stories'] = stories
     except:
         pass
@@ -117,6 +148,13 @@ def profile(request, username, user_profile=None):
         current_user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get(user=current_user)
         actual_user = User.objects.get(username=request.user.username)
+        user = User.objects.get(username=username)
+        print user
+        user_profile = UserProfile.objects.get(user=user)
+        try:
+            actual_user = User.objects.get(username=request.user.username)
+        except:
+            actual_user= user
     context_dict = {}
     context_dict['user'] = actual_user
     context_dict['current_user'] = user_profile.user
@@ -179,8 +217,6 @@ def search(request,q):
     context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
     return render(request, "search.html", context)
 
-       #story_results = Story.objects.filter(title__icontains=q).order_by('-favourite')[:5]
-
 
 #takes a username and paragraph and likes or unlikes the paragraph.
 #returns the new number of likes the paragraph has.
@@ -201,6 +237,58 @@ def like(request):
 
     print "like request", paragraph_id, like_type, user
     return HttpResponse(paragraph.likes)
+
+
+#takes a username and paragraph and likes or unlikes the paragraph.
+#returns the new number of likes the paragraph has.
+def favourite(request):
+    story_id = int(request.GET.get('story'))
+    favourite_type = request.GET.get('type')
+    user = request.user
+
+    story = Story.objects.get(id=story_id)
+
+    #we want to check the database to see if a like is in existence and if it is remove it.
+    if favourite_type == 'favourite':
+        Favourite.objects.get_or_create(user=user, story=story)
+    else:
+        #getting all of the favourites associated with this user & story combo (there should only be one)
+        favourites = Favourite.objects.filter(user=user, story=story)
+        for f in favourites:
+            f.delete()
+
+    print "favourite request", story_id, favourite_type, user
+    return HttpResponse(story.favourites)
+
+#if get we get a form to make a new paragraph with. if post we add a new paragraph and refresh the page.
+def new_paragraph(request):
+    if not request.user.is_authenticated:
+        return HttpResponse('You must be authenticated to perform this action!')
+
+    context_dict = {}
+    call_type = request.GET.get('type', '')
+    parent_id = int(request.GET.get('parentid'))
+    content = request.GET.get('content')
+
+    if call_type == 'submit':
+        #getting the parent paragraph
+        parent_paragraph = Paragraph.objects.get(id=parent_id)
+
+        #creating teh new paragraph
+        new_paragraph = Paragraph(author=request.user, content=content, parent=parent_paragraph, story=parent_paragraph.story)
+        new_paragraph.save()
+
+        #returning a rendered block of the rest of the stories.
+        subtree = queries.getMostPopularSubtree(parent_paragraph)
+        context_dict['subtree'] = subtree
+
+        return render(request, 'story_block.html', context_dict)
+    else:
+        #return rendered form template
+        print parent_id
+        context_dict['parentid'] = parent_id
+
+        return render(request, 'new_paragraph.html', context_dict)
 
 def search_top_stories(request):
     if request.method == 'GET':

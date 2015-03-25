@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load humanize %}
 
 {% block title %} {{story.slug}} {% endblock %}
 
@@ -13,28 +14,41 @@
   {% if story%}
 
   <div class="row background-white" id="story-title">
-    <h1 class="text-center">{{story.title}}</h1>
-    <p class="text-center">
-      <a href ="{% url 'profile' story.author.username %}" class="text-center text-muted" href="#"><em>by {{story.author}}</em></a>
-    </p>
+    <div class="container">
+      <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+        <h1 class="text-center">{{story.title}}
+          {% include 'favourite_button.html' with user=user story=story %}
+        </h1>
+        <p class="text-center">
+          <a href ="{% url 'profile' story.author.username %}" class="text-center text-muted" href="#"><em>by {{story.author}}</em></a>
+        </p>
+      </div>
+    </div>
+
   </div>
 
-  <div class="container">
+  <div class="container" id="story-container">
     <div class='row story-row'>
       <div class='col-md-offset-2 col-md-8'>
-        <div class="carousel slide" data-ride="carousel">
+        <div class="carousel slide" data-ride="carousel" id="quote-carousel{{root_paragraph.id}}">
 
           <!-- Carousel Slides / Quotes -->
           <div class="carousel-inner">
 
             <!-- Quote 1 -->
-            <div class="item active">
+            <div class="item active" paragraph-id="{{root_paragraph.id}}">
               <blockquote>
                 <div class="row">
                   <div class="col-sm-10 col-sm-offset-1">
                     <p>{{root_paragraph.content}}</p>
-                    <a href="{% url 'profile' root_paragraph.author %}"><small>{{root_paragraph.author}}</small></a>
-                    <small>id {{root_paragraph.id}}</small>
+                    <a href="{% url 'profile' root_paragraph.author %}"><small>{{root_paragraph.author}} ({{root_paragraph.created_datetime|naturaltime}}) </small></a>
+                    {% if user.is_authenticated %}
+                    {% if not paragraph.end %}
+                    <button href="#" class="btn btn-xs btn-success btn-add"><span class="glyphicon glyphicon-plus noevents"></span> Add Below</button>
+                    {% endif %}
+                    {% else %}
+                    <p class="pull-left text-muted text-small">   Log in/register to rate/add!  </p>
+                    {% endif %}
                   </div>
                 </div>
               </blockquote>
@@ -55,5 +69,6 @@
 
 
 {% block js_imports %}
-  <script src="{% static 'js/storyCarousel.js' %}"></script>
+  <script src="{% static 'js/story.js' %}"></script>
+  <script src="{% static 'js/favouriteButton.js' %}"></script>
 {% endblock %}

@@ -16,7 +16,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-4">
+			{% if user_profile.picture.url %}
 			<img src="{{ user_profile.picture.url }}"/>
+			{% else %}
+			{% endif %}
 		</div>
 		<div class="col-xs-8">
 			<div class="panel panel-default">
@@ -57,5 +60,5 @@
 					{% endif %}
 			</div>
 		</div>
-	
+
 {% endblock %}

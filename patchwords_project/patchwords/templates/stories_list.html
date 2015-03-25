@@ -22,17 +22,13 @@
 </a>
         </div>
          <div class="story-item-favourites vcenter">
-           <form action="{% url 'home' %}" method="post">
-             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>{{story.favourites}}
-             <input type='hidden' value='5' name="story_name" />
-           </form>
-
+           {% include 'favourite_button.html' with user=user story=story %}
          </div>
       </div>
   {% endfor %}
   {% else %}
-  <h2 class="text-white">
-    Soz, bro - We're all out of stories.
+  <h2 class="text-white text-center">
+    Soz, bro. We're all out of stories.
   </h2>
   {% endif %}
 </div>

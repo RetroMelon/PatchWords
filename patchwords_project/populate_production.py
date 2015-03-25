@@ -12,10 +12,10 @@ import datetime, random
 def populate():
     populate_user()
     populate_category()
-    populate_story()
-    populate_paragraph()
-    populate_like()
-    populate_favourite()
+    #populate_story()
+    #populate_paragraph()
+    #populate_like()
+    #populate_favourite()
 
 
 #the population functions for each part of the database
@@ -29,6 +29,8 @@ def populate_category():
     add_category("Random")
     add_category("Horror")
     add_category("Comedy")
+    add_category("Adventure")
+    add_category("Romance")
     add_category("Twilight Fan-fic")
     add_category("T-swizzle Love-Letters")
     add_category("Sci-Fi")
@@ -115,8 +117,6 @@ def add_user(username, email, password, bio="", date_of_birth=None, picture="pro
     django_user = DjangoUser.objects.get_or_create(username=username, email=email)[0]
     django_user.set_password(password)
     django_user.save()
-
-    print django_user
 
     #creating our kind of user
     user = UserProfile.objects.get_or_create(user=django_user, bio=bio, date_of_birth=date_of_birth, picture=picture)[0]

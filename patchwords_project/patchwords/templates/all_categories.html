@@ -5,32 +5,26 @@
 {% block title %}All Categories{% endblock %}
 
 {% block body %}
-<div class="jumbotron">
-  <div class="container" id="jumbotron-container">
-      {% if user.is_authenticated %}
-      <h1>Post story will go here.</h1>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-          I made it so the gif shows up if the user is logged then realised we were making the learn button more open that
-          and idk how to do that. Thought this could be a quick fix for now since I'd already done it. Can't seem to right
-	 align login/register/login to the right.
-      <p>...</p>
-      {% else %}
-      <img class="center-block" id="explanation-gif" src="{% static "images/explanationgif.gif" %}" alt="" />
-      {% endif %}
-  </div>
-</div>
-<div id="main-content">
-	<div class="container">
-      {% if categories %}
-	  <h2 class = "text-white">All Categories</h2>
-	  <ul>
-      {% for category in categories %}
-				<li><a href="/patchwords/category/{{category.slug}}"><h3 class="text-white">{{category.title}}</h3></a></li>
+  <div class="container">
+    {% if categories %}
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Categories</h3>
+        </div>
+          </br>
+          <div class="panel-body">
+          <div class="list-group">
+          {% for result in categories %}
+          <div class="list-group-item">
+          <h4 class="list-group-item-heading"><a href="{% url 'category'  result.slug %}">{{ result.title }}</a> <span class="badge">{{result.total_stories}}</span></h4>
+        </div>
       {% endfor %}
-	  </ul>
-      {% else %}
-                <strong>No Categories exist at the moment, sorry</strong>
-      {% endif %}
-	  </div>
-</div>
+      </div>
+      </div>
+        </div>
+    {% else %}
+      <h2 class="text-white">There are no categories containing your search parameters</h2>
+    {% endif %}
+  </div>
+
 {% endblock %}
