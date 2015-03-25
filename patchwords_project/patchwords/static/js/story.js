@@ -150,6 +150,10 @@ $(document).on('click','.btn-add-submit', function(e){
     newStoryRow.carousel('prev');
     newStoryRow.carousel('pause');
 
+    //since programmatically sliding the carousel doesn't reload the story tree,
+    //we need to remove the stuff that comes after it.
+    newStoryRow.nextAll().remove();
+
     //flashing the paragraph to draw attention
     var active = newStoryRow.find('.active');
     console.log(active);
