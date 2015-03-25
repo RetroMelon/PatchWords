@@ -5,12 +5,13 @@
 {% block css_imports %}
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
+<link href="{% static "css/registration_form.css" %}" rel="stylesheet"></link>
 {% endblock %}
 
 {% block title %}Edit your profile{% endblock %}
 
 {% block body %}
-<form id="edit_profile_form" method="post" action="/patchwords/edit_profile/" enctype="multipart/form-data" style="max-width:750px">
+<form id="edit_profile_form" method="post" action="/patchwords/edit_profile/" enctype="multipart/form-data" >
 	{% csrf_token %}
 {% if form.errors %}
     <div class="text-danger">Please correct the error{{ form.errors|pluralize }} below.</div>
@@ -20,7 +21,7 @@
 <div class="col-xs-6">		
 <div class="form-group">
  <p class="required"> <label for="id_username">Username:</label>
-     <input class="form-control"  id="id_username" maxlength="30" name="username" type="text"  placeholder="Enter username"/></p>
+     <input class="form-control"  id="id_username" maxlength="30" value={{username}} name="username" type="text" required/></p>
             {% if form.username.errors %}
               <span class="help-block">
                 {% for error in form.username.errors %}{{ error }}{% endfor %}
@@ -32,7 +33,7 @@
  <div class="col-xs-6">
  <div class="form-group">
     <p class="required"><label for="id_email">E-mail:</label>
-        <input class="form-control" id="id_email" name="email" type="email" placeholder="Enter email" /></p>
+        <input class="form-control" id="id_email" name="email" type="email" value={{email}} required /></p>
 		{% if form.email.errors %}
               <span class="help-block">
                 {% for error in form.email.errors %}{{ error }}{% endfor %}
@@ -54,30 +55,22 @@
 
 	<div class="col-xs-6">
  <div class="form-group"><label for="datepicker">Date Of Birth</label>
-	<p><input class="form-control"  id="datepicker"  name="date_of_birth" type="text"  placeholder="Select Date of Birth"/></p>
+	<p><input class="form-control"  id="datepicker"  name="date_of_birth" value={{date_of_birth}} type="text"  placeholder="Select Date of Birth"/></p>
 </div>
 </div>
-</div>
-
-<div class="form-group">
-<p><label for="id_bio">Bio</label>
-<input class="form-control" id="id_bio" name="bio" type="text" placeholder="Enter some info" /></p>
-</div>
-		
-	
-	<div class="radio-inline">
-    <p><input class="radio-inline" id="id_male" name="inlineRadioOptions" type="radio"/><strong>Male</strong></p>
-</div>
-<div class="radio-inline">
-	<p><input class="radio-inline" id="id_female" name="inlineRadioOptions" type="radio"><strong>Female</strong></p>
 </div>
 
 <h3><span class="label label-success"><a href="{% url 'auth_password_change' %}">Change password</a></span></h3>
-</br>
 
 	
-	<input type="submit" name="submit" value="Update" />
+	<input type="submit" name="submit" id="update" value="Update" />
+	
 </form>
+
+<div class="form-group">
+<label for="id_bio">Bio</label>
+<textarea class="form-control"value={{bio}} name="bio" type="text" rows=5 id="id_bio" form="edit_profile_form"></textarea>
+</div>
 
 {% endblock %}
 
