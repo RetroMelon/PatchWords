@@ -12,6 +12,8 @@ def getTopStories(start=0, end=20, category=None):
 
     stories_ordered = zip(map(lambda x : x.favourites, stories), stories)
 
+    if not stories_ordered:
+        return []
     #sorting the stories
     stories_ordered.sort()
     stories_ordered.reverse()
@@ -63,18 +65,6 @@ def _sortParagraphs(paragraphs):
     print "parapgraphs", paragraphs
 
     return paragraphs
-
-
-def _sortParagraphs2(paragraphs):
-    if not paragraphs:
-        return []
-    #zipping paragraphs with likes
-    zipped = map(lambda x: (x.likes, x), paragraphs)
-    zipped.sort()
-    zipped.reverse()
-
-    unzipped = zip(*zipped)[1]
-    return unzipped
 
 
 #a wrapper around getMostPopularSubtree
