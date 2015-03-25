@@ -149,7 +149,6 @@ def profile(request, username, user_profile=None):
         user_profile = UserProfile.objects.get(user=current_user)
         actual_user = User.objects.get(username=request.user.username)
         user = User.objects.get(username=username)
-        print user
         user_profile = UserProfile.objects.get(user=user)
         try:
             actual_user = User.objects.get(username=request.user.username)
