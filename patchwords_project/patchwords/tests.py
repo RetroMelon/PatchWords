@@ -154,3 +154,33 @@ class CategoryViewTest(TestCase):
         response = self.client.get('/patchwords/category/storyisntin/')
         num_stories = len(response.context['stories'])
         self.assertEqual(num_stories , 0)
+        
+class AllCategoriesTest(TestCase):
+    def test_allcategories_empty(self):
+        response = self.client.get(reverse('all_categories'))
+        num_cat = len(response.context['categories'])
+        self.assertEqual(num_cat , 0)
+        cat = add_category('test')
+        add_category('test2')
+        response = self.client.get(reverse('all_categories'))
+        self.assertContains(response, cat)
+        num_cat = len(response.context['categories'])
+        self.assertEqual(num_cat , 2)
+
+class StoriesTest(TestCase):
+    def test_story(self):
+        user = add_user('username')
+        cat = add_category('storyisin')
+        story = add_story('test', user, cat)
+        response = self.client.get('/patchwords/story/test/')
+        self.assertContains(response, story)
+        
+class SearchTest(TestCase):
+    def test_search_test(self):
+        user = add_user('Bob')
+        cat = add_category('Job')
+        story = add_story('Job', user, cat)
+        user2 = add_user('Kerry')
+        response = self.client.get('/patchwords/search/?parameter=Job&filter=All')
+        self.assertContains(response, story)
+        self.assertNotContains(response, user2)
