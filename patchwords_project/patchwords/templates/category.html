@@ -5,31 +5,30 @@
 {% block title %}{{ category }}{% endblock %}
 
 {% block body %}
-
 <div class="jumbotron">
   <div class="container" id="jumbotron-container">
       {% if user.is_authenticated %}
-
       <h2 class="text-center text-white">Start your own story here!</h2>
       <div class="right-align">
-      <button id="help" class="btn btn-default btn-xs" onclick="showGif()"><span class="glyphicon glyphicon-question-sign"></span> Help</button>
-      <button id="less" class="btn btn-default btn-xs" onclick="hideGif()"/><span class="glyphicon glyphicon-question-sign"></span> Less</button>
-      <div><img src = "" id = "static/images/explanationgif.gif"/>
-      </div>
-      </div>
-	  <form role="form"  id="page_form" method="post" action="/patchwords/category/{{category.slug}}/">
+		<button id="help" class="btn btn-default btn-xs" onclick="showGif()"><span class="glyphicon glyphicon-question-sign"></span> Help</button>
+		<button id="less" class="btn btn-default btn-xs" onclick="hideGif()"/><span class="glyphicon glyphicon-question-sign"></span> Less</button>
+	</div>
+	<br>
+	<div class = 'right-align'>
+	  <img src = "" id = "static/images/explanationgif.gif"/>
+    </div>
+    <form role="form"  id="page_form" method="post" action="/patchwords/category/{{category.slug}}/">
+	</br>
 
-                   <input type='hidden' name='csrfmiddlewaretoken' value='jeOvZxwaJFyuNOXET06KMO7NvbPt3b5Z' />
-           
-                        <input class = "form-control" placeholder = 'Title' "id="id_title" maxlength="100" name="title" type="text" /><br/>
-                    
-						
-                        <input class = "form-control" placeholder = 'Write your first paragraph' "id="id_text" maxlength="140" name="text" type="text" /><br>
+	{% csrf_token %}
+  <input class = "form-control" placeholder = 'Title' id="id_title" maxlength="100" name="title" type="text" required/><br/>
+  <input class = "form-control" placeholder = 'Write your first paragraph' id="id_text" maxlength="140" name="text" type="text" required/><br>
 
-                        <select class = "btn btn-default" id="id_cat" name="cat">
+  <select class = "btn btn-default" id="id_cat" name="cat" required>
+
 <option>{{category}}</option>
 </select><br/>
-                   
+
                 <br/>
             <button class="btn btn-primary" type="submit" name="submit">Submit</button>
                 </form>
@@ -44,12 +43,14 @@
             document.getElementById("static/images/explanationgif.gif").style.display='block';
             document.getElementById('help').style.display = 'none';
             document.getElementById('less').style.display = 'block';
+			document.getElementById("page_form").style.display='none'
         }
       function hideGif()
         {
             document.getElementById("static/images/explanationgif.gif").style.display = 'none'
             document.getElementById('help').style.display = 'block';
-            document.getElementById('less').style.display = 'none'
+            document.getElementById('less').style.display = 'none';
+			document.getElementById('page_form').style.display='block';
         }
       </script>
       {% else %}
@@ -57,7 +58,7 @@
       {% endif %}
   </div>
 </div>
-	  
+
 <div class="background-red" id="main-content">
   {% if category %}
   <div class="container">

@@ -1,0 +1,31 @@
+{% load stories_tags %}
+
+{% if user.is_authenticated %}
+
+  {% if story|favourited_by:user %}
+  <button href="#" class="btn btn-md btn-default btn-favourite" state="favourited" story-id="{{story.id}}">
+    <span class="glyphicon glyphicon-star noevents"></span>
+    <span class="favourite-text noevents">
+      Favourited
+    </span>
+    <span class="badge noevents badge-favourites">{{story.favourites}}</span>
+  </button>
+  {% else %}
+  <button href="#" class="btn btn-md btn-default btn-favourite" state="favourite" story-id="{{story.id}}">
+    <span class="glyphicon glyphicon-star-empty noevents"></span>
+    <span class="favourite-text noevents">
+      Favourite
+    </span>
+    <span class="badge noevents badge-favourites">{{story.favourites}}</span>
+  </button>
+  {% endif %}
+
+{% else %}
+  <button href="#" class="btn btn-md btn-default" story-id="{{story.id}}" disabled>
+    <span class="glyphicon glyphicon-star-empty noevents"></span>
+    <span class="noevents">
+      Log in to favourite!
+    </span>
+    <span class="badge noevents">{{story.favourites}}</span>
+  </button>
+{% endif %}

@@ -102,7 +102,7 @@ def category(request, category_name_slug):
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category'] = category
         context_dict['category_name_slug'] = category_name_slug
-        stories = queries.getTopStories()
+        stories = queries.getTopStories(category=category)
         context_dict['stories'] = stories
     except:
         pass
@@ -131,20 +131,23 @@ def edit_profile(request):
             profile_to_edit.save()
             return profile(request,username,user_profile=user_profile)
     else:
-        user_data = {'username': user_profile.user.username,'email':user_profile.user.email}
-        user_profile_data = {'picture': user_profile.picture, 'bio':user_profile.bio,
-                             'gender':user_profile.gender}
         context_dict = {}
-        context_dict['user_form'] = UserForm(initial=user_data)
-        context_dict['user_profile_form'] = UserProfileForm(initial=user_profile_data)
+        context_dict['username'] = user_profile.user.username
+        context_dict['email'] = user_profile.user.email
+        context_dict['bio'] = user_profile.bio
+        context_dict['date_of_birth'] = user_profile.date_of_birth
         return render(request, 'edit_profile.html', context_dict)
 
 def profile(request, username, user_profile=None):
     if user_profile:
         flag = True
         user_profile = user_profile
+        actual_user = user_profile.user
     else:
         flag = False
+        current_user = User.objects.get(username=username)
+        user_profile = UserProfile.objects.get(user=current_user)
+        actual_user = User.objects.get(username=request.user.username)
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get(user=user)
         try:
@@ -152,9 +155,9 @@ def profile(request, username, user_profile=None):
         except:
             actual_user= user
     context_dict = {}
-    context_dict['user'] = request.user
+    context_dict['user'] = actual_user
+    context_dict['current_user'] = user_profile.user
     context_dict['user_profile'] = user_profile
-    context_dict['current_profile'] = user_profile.user
     if flag:
         context_dict['flag'] = True
     else:
@@ -230,6 +233,28 @@ def like(request):
             l.delete()
 
     return HttpResponse(paragraph.likes)
+
+
+#takes a username and paragraph and likes or unlikes the paragraph.
+#returns the new number of likes the paragraph has.
+def favourite(request):
+    story_id = int(request.GET.get('story'))
+    favourite_type = request.GET.get('type')
+    user = request.user
+
+    story = Story.objects.get(id=story_id)
+
+    #we want to check the database to see if a like is in existence and if it is remove it.
+    if favourite_type == 'favourite':
+        Favourite.objects.get_or_create(user=user, story=story)
+    else:
+        #getting all of the favourites associated with this user & story combo (there should only be one)
+        favourites = Favourite.objects.filter(user=user, story=story)
+        for f in favourites:
+            f.delete()
+
+    print "favourite request", story_id, favourite_type, user
+    return HttpResponse(story.favourites)
 
 #if get we get a form to make a new paragraph with. if post we add a new paragraph and refresh the page.
 def new_paragraph(request):

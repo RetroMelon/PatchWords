@@ -25,7 +25,7 @@ def user_created(sender, user, request, **kwargs):
     try:
         data.gender = form.data["gender"]
     except:
-        data.gender = "Not Specified"
+        data.gender = None
     data.save()
 
 user_registered.connect(user_created)

@@ -1,0 +1,22 @@
+.row{
+	max-width: 1000px;
+}
+
+
+.form-group{
+	max-width: 970px;
+}
+
+
+#update {
+  position: relative;
+  top: 170px;
+ }
+
+#submit{ 
+   position: relative;
+  top: 190px;
+  right: 130px;
+  }
+
+ 

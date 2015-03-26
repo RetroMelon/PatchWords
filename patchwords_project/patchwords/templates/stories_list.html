@@ -22,7 +22,7 @@
 </a>
         </div>
          <div class="story-item-favourites vcenter">
-             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>{{story.favourites}}
+           {% include 'favourite_button.html' with user=user story=story %}
          </div>
       </div>
   {% endfor %}
