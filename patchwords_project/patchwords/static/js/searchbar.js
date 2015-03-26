@@ -1,13 +1,14 @@
 function search() {
-  window.location='/patchwords/search/'+document.getElementById('SearchInput').value+'/?filter='+document.getElementById('dropdownMenu').value;
+  window.location='/patchwords/search/?parameter='+document.getElementById('SearchInput').value+'&filter='+document.getElementById('dropdownMenu').value;
 }
 
 
-$('search-button').click(search);
+$('#search-button').click(search);
 
-$('#searchInput').keypress(function(e){
+$('#SearchInput').keypress(function(e){
   var code = e.keyCode || e.which;
   if(code == 13) { //Enter keycode
+    e.preventDefault();
     search();
   }
 });

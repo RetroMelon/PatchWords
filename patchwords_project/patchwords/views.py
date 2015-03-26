@@ -158,19 +158,11 @@ def profile(request, username, user_profile=None):
     context_dict['user'] = actual_user
     context_dict['current_user'] = user_profile.user
     context_dict['user_profile'] = user_profile
+    context_dict['stories'] = Story.objects.filter(author=user)
     if flag:
         context_dict['flag'] = True
     else:
         context_dict['flag'] = (actual_user.username == username)
-
-
-    #stories = Story.objects.get(author = user_profile)
-    #stories_map = (lambda x : (x.favorites, x), stories)
-    #stories_map.sort()
-    #stories_map.reverse()
-    #context_dict['storiesMostRecent'] = stories_map[:5]
-
-    #stories = Story.objects.get(author = user_profile).sortBy('-created_datetime')[:5]
 
     return render(request, 'profile.html', context_dict)
 
@@ -203,20 +195,18 @@ def render_most_popular_subtree(request, paragraph_id):
         pass
     return render(request, 'story_block.html', context_dict)
 
-def search(request,q):
+def search(request):
     cat = request.GET.get("filter")
-    if q:
-       story_results = Story.objects.filter(title__icontains=q)[:5]
-       user_results = User.objects.filter(username__icontains=q)[:5]
-       category_results= Category.objects.filter(title__icontains=q)[:5]
-    else:
-        story_results = Story.objects.none()
-        user_results=User.objects.none()
-        category_results=Category.objects.none()
-    context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
+    parameter = request.GET.get("parameter")
+    print parameter
+    story_results = Story.objects.filter(title__icontains=parameter)[:5]
+    user_results = User.objects.filter(username__icontains=parameter)[:5]
+    category_results= Category.objects.filter(title__icontains=parameter)[:5]
+    context = dict(story_results=story_results, user_results=user_results, category_results=category_results, parameter=parameter,cat=cat)
     return render(request, "search.html", context)
 
-
+def search_null(request):
+    return HttpResponseRedirect('patchwords')
 #takes a username and paragraph and likes or unlikes the paragraph.
 #returns the new number of likes the paragraph has.
 def like(request):
@@ -234,7 +224,6 @@ def like(request):
         for l in likes:
             l.delete()
 
-    print "like request", paragraph_id, like_type, user
     return HttpResponse(paragraph.likes)
 
 
@@ -284,9 +273,7 @@ def new_paragraph(request):
         return render(request, 'story_block.html', context_dict)
     else:
         #return rendered form template
-        print parent_id
         context_dict['parentid'] = parent_id
-
         return render(request, 'new_paragraph.html', context_dict)
 
 def search_top_stories(request):

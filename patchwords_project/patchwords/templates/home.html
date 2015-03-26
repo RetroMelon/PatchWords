@@ -20,13 +20,12 @@
 	  <form role="form"  id="page_form" method="post" action="/patchwords/">
       </br>
                    {% csrf_token %}
-
                         <input class = "form-control" placeholder = 'Title' id="id_title" maxlength="100" name="title" type="text" required/><br/>
                         <input class = "form-control" placeholder = 'Write your first paragraph' id="id_text" maxlength="140" name="text" type="text" required/><br>
 
-
                         <select class = "btn btn-default dropdown-toggle" id="id_cat" name="cat" required >
-<option value="" selected="selected">Category</option>
+
+                            <option value="" selected="selected">Category</option>
 {% for category in allOfTheCategories %}
 <option>{{category}}</option>
 {% endfor %}
@@ -64,7 +63,7 @@
   <div class="container">
     <div class="row">
       <h2 class="pull-left text-white">Categories</h2>
-      <h3 class="pull-right text-white"><a href="{% url 'all_categories' %}" class="text-white">view all</a><span class="glyphicon glyphicon-chevron-right"></span></h3>
+      <h3 class="pull-right text-white"><a href="{% url 'all_categories' %}" class="text-white">View all</a><span class="glyphicon glyphicon-chevron-right"></span></h3>
     </div>
 
     <div class="content-section" id="categories-section">
@@ -77,7 +76,7 @@
       {% endif %}
     </div>
 
-    <br></br>
+    <br>
 
     <div class="row">
       <h2 class="pull-left text-white">Top Stories</h2>
@@ -101,7 +100,6 @@
 
 {% block js_imports %}
   <script src="{% static 'js/getMoreStories.js' %}"></script>
-  <script src="{% static 'js/favouriteButton.js' %}"></script>
   <script charset="utf-8">
     categoryTitle = ""; //In the category pages, this will be used to filter by category using {{category.title}}
   </script>

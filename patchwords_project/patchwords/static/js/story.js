@@ -74,7 +74,7 @@ $(document).on('click','.btn-like', function(e){
     $.ajax({
       method: "GET",
       url: "/patchwords/like/",
-      data: {paragraph:parentParagraphId, type:'unlike'}
+      data: {paragraph:parentParagraphId, type:'liked'}
     })
     .done(updateBadge);
 
