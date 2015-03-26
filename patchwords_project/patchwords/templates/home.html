@@ -19,15 +19,10 @@
       </div>
 	  <form role="form"  id="page_form" method="post" action="/patchwords/">
       </br>
-
-                   <input type='hidden' name='csrfmiddlewaretoken' value='jeOvZxwaJFyuNOXET06KMO7NvbPt3b5Z' />
-           
+      {% csrf_token %}
                         <input class = "form-control" placeholder = 'Title' "id="id_title" maxlength="100" name="title" type="text" /><br/>
-                    
-						
-                        <input class = "form-control" placeholder = 'Write your first paragraph' "id="id_text" maxlength="140" name="text" type="text" /><br>
-
-                        <select class = "btn btn-default dropdown-toggle" id="id_cat" name="cat">
+                    <input class = "form-control" placeholder = 'Write your first paragraph' "id="id_text" maxlength="140" name="text" type="text" /><br>
+    <select class = "btn btn-default dropdown-toggle" id="id_cat" name="cat">
 <option value="" selected="selected">Category</option>
 {% for category in allOfTheCategories %}
 <option>{{category}}</option>
@@ -66,7 +61,7 @@
   <div class="container">
     <div class="row">
       <h2 class="pull-left text-white">Categories</h2>
-      <h3 class="pull-right text-white"><a href="{% url 'all_categories' %}" class="text-white">view all</a><span class="glyphicon glyphicon-chevron-right"></span></h3>
+      <h3 class="pull-right text-white"><a href="{% url 'all_categories' %}" class="text-white">View all</a><span class="glyphicon glyphicon-chevron-right"></span></h3>
     </div>
 
     <div class="content-section" id="categories-section">
@@ -79,7 +74,7 @@
       {% endif %}
     </div>
 
-    <br></br>
+    <br>
 
     <div class="row">
       <h2 class="pull-left text-white">Top Stories</h2>

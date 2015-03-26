@@ -31,7 +31,7 @@
               <input type="text" class="form-control"  id="SearchInput"  placeholder="Search" >
               <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
               <span class="input-group-addon">
-                <button type="button" onclick="window.location='/patchwords/search/'+document.getElementById('SearchInput').value+'/?filter='+document.getElementById('dropdownMenu').value">
+                <button type="button" onclick="window.location='/patchwords/search/?parameter='+document.getElementById('SearchInput').value+'&filter='+document.getElementById('dropdownMenu').value">
                   <span class="glyphicon glyphicon-search"></span>
                 </button>
               </span>
@@ -43,13 +43,14 @@
       {% if user.is_authenticated %}
           <h4>
       <a class="navbar-text" href="{% url 'profile' user.username%}">{{ user.username }}</a>
-      <a class="navbar-text" href="{% url 'auth_logout' %}?next=/patchwords/">Logout</a>
+      <a class="navbar-text" href="{% url 'auth_logout' %}?next=/patchwords/">Logout</a></h4>
       {% else %}
               <h4>
       <a class="navbar-text" href="{% url 'auth_login' %}?next=/patchwords/">Login</a>
       <a class="navbar-text" href="{% url 'registration_register' %}">Register Here</a>
           </h4>
       {% endif %}
+  </div>
 </nav>
 </head>
 

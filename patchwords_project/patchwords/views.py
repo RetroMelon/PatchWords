@@ -146,7 +146,6 @@ def profile(request, username, user_profile=None):
     else:
         flag = False
         user = User.objects.get(username=username)
-        print user
         user_profile = UserProfile.objects.get(user=user)
         try:
             actual_user = User.objects.get(username=request.user.username)
@@ -201,20 +200,18 @@ def render_most_popular_subtree(request, paragraph_id):
         pass
     return render(request, 'story_block.html', context_dict)
 
-def search(request,q):
+def search(request):
     cat = request.GET.get("filter")
-    if q:
-       story_results = Story.objects.filter(title__icontains=q)[:5]
-       user_results = User.objects.filter(username__icontains=q)[:5]
-       category_results= Category.objects.filter(title__icontains=q)[:5]
-    else:
-        story_results = Story.objects.none()
-        user_results=User.objects.none()
-        category_results=Category.objects.none()
-    context = dict(story_results=story_results, user_results=user_results, category_results=category_results, q=q,cat=cat)
+    parameter = request.GET.get("parameter")
+    print parameter
+    story_results = Story.objects.filter(title__icontains=parameter)[:5]
+    user_results = User.objects.filter(username__icontains=parameter)[:5]
+    category_results= Category.objects.filter(title__icontains=parameter)[:5]
+    context = dict(story_results=story_results, user_results=user_results, category_results=category_results, parameter=parameter,cat=cat)
     return render(request, "search.html", context)
 
-
+def search_null(request):
+    return HttpResponseRedirect('patchwords')
 #takes a username and paragraph and likes or unlikes the paragraph.
 #returns the new number of likes the paragraph has.
 def like(request):
@@ -232,7 +229,6 @@ def like(request):
         for l in likes:
             l.delete()
 
-    print "like request", paragraph_id, like_type, user
     return HttpResponse(paragraph.likes)
 
 #if get we get a form to make a new paragraph with. if post we add a new paragraph and refresh the page.
@@ -260,9 +256,7 @@ def new_paragraph(request):
         return render(request, 'story_block.html', context_dict)
     else:
         #return rendered form template
-        print parent_id
         context_dict['parentid'] = parent_id
-
         return render(request, 'new_paragraph.html', context_dict)
 
 def search_top_stories(request):
