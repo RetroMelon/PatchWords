@@ -158,19 +158,11 @@ def profile(request, username, user_profile=None):
     context_dict['user'] = actual_user
     context_dict['current_user'] = user_profile.user
     context_dict['user_profile'] = user_profile
+    context_dict['stories'] = Story.objects.filter(author=user)
     if flag:
         context_dict['flag'] = True
     else:
         context_dict['flag'] = (actual_user.username == username)
-
-
-    #stories = Story.objects.get(author = user_profile)
-    #stories_map = (lambda x : (x.favorites, x), stories)
-    #stories_map.sort()
-    #stories_map.reverse()
-    #context_dict['storiesMostRecent'] = stories_map[:5]
-
-    #stories = Story.objects.get(author = user_profile).sortBy('-created_datetime')[:5]
 
     return render(request, 'profile.html', context_dict)
 
