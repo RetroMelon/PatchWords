@@ -144,6 +144,7 @@ def profile(request, username, user_profile=None):
         flag = True
         user_profile = user_profile
         actual_user = user_profile.user
+        user = user_profile.user
     else:
         flag = False
         current_user = User.objects.get(username=username)
