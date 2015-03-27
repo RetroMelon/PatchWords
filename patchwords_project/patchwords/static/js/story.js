@@ -62,7 +62,7 @@ $(document).on('click','.btn-like', function(e){
   }
 
   //button is in liked state so we have to unlike.
-  if(btn.attr('state') == 'Un-like') {
+  if(btn.attr('state') == 'liked') {
     //changing button to unliked state
     btn.attr('state', 'like');
 
@@ -74,7 +74,7 @@ $(document).on('click','.btn-like', function(e){
     $.ajax({
       method: "GET",
       url: "/patchwords/like/",
-      data: {paragraph:parentParagraphId, type:'Un-like'}
+      data: {paragraph:parentParagraphId, type:'liked'}
     })
     .done(updateBadge);
 
@@ -82,11 +82,11 @@ $(document).on('click','.btn-like', function(e){
   }
   else { //button is in unliked state so we have to like.
     //changing button to liked state
-    btn.attr('state', 'Un-like');
+    btn.attr('state', 'liked');
 
     glyph.removeClass('glyphicon-heart-empty');
     glyph.addClass('glyphicon-heart');
-    btn.children('.like-text').text(' Un-like');
+    btn.children('.like-text').text(' Liked');
 
     //requesting like
     $.ajax({
