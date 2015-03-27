@@ -65,14 +65,6 @@
 				The passwords do not match
 				{% endif %}
 				</span>
- {% if form.password2.errors %}
-              <span class="help-block">
-                {% for error in form.password2.errors %}{{ error }}{% endfor %}
-				{% if form.non_field_errors %}
-				The passwords do not match
-				{% endif %}
-              </span>
-        		 {% endif %}
 </div>
 </div>
 </div>

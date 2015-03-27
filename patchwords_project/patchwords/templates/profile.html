@@ -61,6 +61,10 @@
 			</div>
 		</div>
 
-            <h1>This users top stories</h1>
+            <h1> Top stories</h1>
           {% include 'stories_list.html' %}
+		  <h1>Favourited stories</h1>
+		  {% with stories=favourited_stories %}
+		  {% include 'stories_list.html' %}
+		  {% endwith %}
 {% endblock %}

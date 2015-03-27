@@ -1,6 +1,6 @@
 # The queries.py file contains a bunch of relatively complex database
 # queries that probably shouldn't take place inside the views.
-from patchwords.models import Category, Story, Paragraph
+from patchwords.models import Category, Story, Paragraph, User, Favourite
 
 #gets a list of
 def getTopStories(start=0, end=5, category=None):
@@ -92,3 +92,11 @@ def _getMostPopularSubtree(paragraphs):
             return_list.extend(most_pop)
 
     return return_list
+
+def get_favourited_stories(request,username):
+    user = User.objects.get(username=username)
+    favourites = list(Favourite.objects.filter(user=user))
+    stories = []
+    for favourite in favourites:
+        stories += [favourite.story]
+    return stories

@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponseRedirect,HttpResponse
 from models import *
 import sys, queries
+from queries import *
 from forms import *
 from django.contrib.auth.models import User
 
@@ -159,6 +160,7 @@ def profile(request, username, user_profile=None):
     context_dict['current_user'] = user_profile.user
     context_dict['user_profile'] = user_profile
     context_dict['stories'] = Story.objects.filter(author=user)
+    context_dict['favourited_stories'] = get_favourited_stories(request,username)
     if flag:
         context_dict['flag'] = True
     else:
@@ -198,7 +200,6 @@ def render_most_popular_subtree(request, paragraph_id):
 def search(request):
     cat = request.GET.get("filter")
     parameter = request.GET.get("parameter")
-    print parameter
     story_results = Story.objects.filter(title__icontains=parameter)[:5]
     user_results = User.objects.filter(username__icontains=parameter)[:5]
     category_results= Category.objects.filter(title__icontains=parameter)[:5]
@@ -245,7 +246,6 @@ def favourite(request):
         for f in favourites:
             f.delete()
 
-    print "favourite request", story_id, favourite_type, user
     return HttpResponse(story.favourites)
 
 #if get we get a form to make a new paragraph with. if post we add a new paragraph and refresh the page.
